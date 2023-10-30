@@ -7,24 +7,44 @@ export function CollectionCard({
   collection: CollectionsQuery['collections']['items'][number];
 }) {
   return (
-    <Link
-      to={'/collections/' + collection.slug}
-      prefetch="intent"
-      key={collection.id}
-      className="max-w-[300px] relative rounded-lg overflow-hidden hover:opacity-75 xl:w-auto"
-    >
-      <span aria-hidden="true" className="">
-        <div className="w-full h-full object-center object-cover">
-          <img src={collection.featuredAsset?.preview + '?w=300&h=300'} />
-        </div>
-      </span>
-      <span
-        aria-hidden="true"
-        className="absolute w-full bottom-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"
+    // <Link
+    //   to={'/collections/' + collection.slug}
+    //   prefetch="intent"
+    //   key={collection.id}
+    //   className="max-w-[300px] relative rounded-lg overflow-hidden hover:opacity-75 xl:w-auto"
+    // >
+    //   <span aria-hidden="true" className="">
+    //     <div className="w-full h-full object-center object-cover">
+    //       <img src={collection.featuredAsset?.preview + '?w=300&h=300'} />
+    //     </div>
+    //   </span>
+    //   <span
+    //     aria-hidden="true"
+    //     className="absolute w-full bottom-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"
+    //   />
+    //   <span className="absolute w-full bottom-2 mt-auto text-center text-xl font-bold text-white">
+    //     {collection.name}
+    //   </span>
+    // </Link>
+
+    <div className="relative min-w-[180px] flex-col max-w-[240px] group">
+      <a
+        className="absolute w-full h-full z-1 focus-visible:outline focus-visible:outline-offset focus-visible:rounded-md"
+        href={'/collections/' + collection.slug}
+        aria-label={collection.name}
       />
-      <span className="absolute w-full bottom-2 mt-auto text-center text-xl font-bold text-white">
-        {collection.name}
-      </span>
-    </Link>
+      <img
+        className="rounded-full bg-neutral-100 group-hover:shadow-xl group-active:shadow-none"
+        src={collection.featuredAsset?.preview + '?w=300&h=300'}
+        alt="collection image"
+        width="240"
+        height="240"
+      />
+      <div className="flex justify-center">
+        <a className="mt-4 font-semibold no-underline text-normal-900 typography-text-base group-hover:underline group-hover:text-primary-800 group-hover:font-normal group-active:text-primary-800 group-active:font-normal">
+          {collection.name}
+        </a>
+      </div>
+    </div>
   );
 }

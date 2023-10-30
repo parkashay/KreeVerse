@@ -3,6 +3,8 @@ import { getCollections } from '~/providers/collections/collections';
 import { CollectionCard } from '~/components/collections/CollectionCard';
 import { BookOpenIcon } from '@heroicons/react/24/solid';
 import { LoaderArgs } from '@remix-run/server-runtime';
+import { SfButton } from '@storefront-ui/react';
+import HeroSection from '~/components/hero-section/HeroSection';
 
 export async function loader({ request }: LoaderArgs) {
   const collections = await getCollections(request, { take: 20 });
@@ -16,8 +18,7 @@ export default function Index() {
   const headerImage = collections[0]?.featuredAsset?.preview;
   return (
     <>
-      <div className="relative">
-        {/* Decorative image and overlay */}
+      {/* <div className="relative">
         <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
           {headerImage && (
             <img
@@ -66,8 +67,9 @@ export default function Index() {
             </a>
           </p>
         </div>
-      </div>
+      </div> */}
 
+      <HeroSection />
       <section
         aria-labelledby="category-heading"
         className="pt-24 sm:pt-32 xl:max-w-7xl xl:mx-auto xl:px-8"

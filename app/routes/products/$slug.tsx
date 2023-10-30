@@ -112,7 +112,7 @@ export default function ProductSlug() {
                     '?w=800'
                   }
                   alt={product.name}
-                  className="w-full h-full object-center object-cover rounded-lg"
+                  className="w-full h-full object-center object-cover"
                 />
               </div>
             </span>
