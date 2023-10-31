@@ -178,7 +178,7 @@ export default function Footer({
       <hr />
       <div className="py-10 md:flex md:mx-auto max-w-[1536px]">
         {contactOptions.map(({ label, icon: Icon, link, details }) => (
-          <div className="mx-auto my-4 text-center" key={label}>
+          <div className="mx-auto my-4 flex flex-col items-center" key={label}>
             <Icon />
             <p className="py-1 my-2 font-medium typography-text-lg font-body">
               <SfLink
@@ -207,7 +207,7 @@ export default function Footer({
               key={label}
               square
               as="a"
-              className="!text-white bg-transparent active:text-white hover:text-white hover:!bg-neutral-500 active:bg-transparent"
+              className="bg-primary-900/10"
               href={link}
               aria-label={`Go to ${label} page`}
             >
@@ -227,7 +227,7 @@ export default function Footer({
             </SfLink>
           ))}
         </div>
-        <p className="flex items-center justify-center py-2 leading-5 text-center typography-text-sm text-white/50 font-body md:ml-6">
+        <p className="flex items-center justify-center py-2 leading-5 text-center typography-text-sm text-white/70 font-body md:ml-6">
           @2023 Vue Storefront
         </p>
       </div>

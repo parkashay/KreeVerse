@@ -22,8 +22,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: colors.sky,
-        secondary: colors.emerald,
+        primary: colors.emerald,
+        secondary: colors.sky,
+        text: 'white',
       },
       animation: {
         dropIn: 'dropIn 0.2s ease-out',

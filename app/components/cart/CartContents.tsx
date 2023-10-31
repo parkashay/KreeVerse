@@ -1,4 +1,9 @@
 import { Form, Link, useFetcher, useOutletContext } from '@remix-run/react';
+import {
+  SfIconAdd,
+  SfIconAddShoppingCart,
+  SfIconDelete,
+} from '@storefront-ui/react';
 import { Price } from '~/components/products/Price';
 import { ActiveOrderQuery, CurrencyCode } from '~/generated/graphql';
 
@@ -47,9 +52,12 @@ export function CartContents({
               </div>
               <div className="flex-1 flex items-center text-sm">
                 {editable ? (
-                  <Form>
+                  <Form className="flex items-center">
                     <label htmlFor={`quantity-${line.id}`} className="mr-2">
-                      Quantity
+                      <span className="flex">
+                        <SfIconAddShoppingCart />
+                        Quantity
+                      </span>
                     </label>
                     <select
                       disabled={!isEditable}
@@ -85,10 +93,10 @@ export function CartContents({
                       type="submit"
                       name="removeItem"
                       value={line.id}
-                      className="font-medium text-primary-600 hover:text-primary-500"
+                      className="font-medium text-red-400 hover:text-red-600 flex"
                       onClick={() => removeItem && removeItem(line.id)}
                     >
-                      Remove
+                      <SfIconDelete /> Remove
                     </button>
                   )}
                 </div>

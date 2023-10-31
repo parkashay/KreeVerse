@@ -107,7 +107,7 @@ export const socialMedia = [
   {
     label: 'Facebook',
     link: '#',
-    icon: () => <SfIconFacebook />,
+    icon: () => <SfIconFacebook className="fill-current" />,
   },
   {
     label: 'Twitter',

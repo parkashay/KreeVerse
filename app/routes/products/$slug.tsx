@@ -19,6 +19,17 @@ import Alert from '~/components/Alert';
 import { StockLevelLabel } from '~/components/products/StockLevelLabel';
 import TopReviews from '~/components/products/TopReviews';
 import { ScrollableContainer } from '~/components/products/ScrollableContainer';
+import {
+  SfButton,
+  SfIconAddShoppingCart,
+  SfIconCheckCircle,
+  SfIconCreditCard,
+  SfIconPackage,
+  SfIconShoppingCart,
+  SfIconShoppingCartCheckout,
+  SfIconUnfoldMore,
+  SfSelect,
+} from '@storefront-ui/react';
 
 export const meta: MetaFunction = ({ data }) => {
   return [
@@ -148,7 +159,7 @@ export default function ProductSlug() {
           <div className="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
             <div className="">
               <h3 className="sr-only">Description</h3>
-
+              <h2 className="mb-1 font-bold text-2xl"> {product.name} </h2>
               <div
                 className="text-base text-gray-700"
                 dangerouslySetInnerHTML={{
@@ -160,32 +171,29 @@ export default function ProductSlug() {
               <input type="hidden" name="action" value="addItemToOrder" />
               {1 < product.variants.length ? (
                 <div className="mt-4">
-                  <label
-                    htmlFor="option"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Select option
-                  </label>
-                  <select
-                    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md"
-                    id="productVariant"
-                    value={selectedVariantId}
-                    name="variantId"
-                    onChange={(e) => {
-                      setSelectedVariantId(e.target.value);
+                  <label>
+                    <SfSelect
+                      slotChevron={<></>}
+                      className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md"
+                      id="productVariant"
+                      value={selectedVariantId}
+                      name="variantId"
+                      onChange={(e) => {
+                        setSelectedVariantId(e.target.value);
 
-                      const variant = findVariantById(e.target.value);
-                      if (variant) {
-                        setFeaturedAsset(variant!.featuredAsset);
-                      }
-                    }}
-                  >
-                    {product.variants.map((variant) => (
-                      <option key={variant.id} value={variant.id}>
-                        {variant.name}
-                      </option>
-                    ))}
-                  </select>
+                        const variant = findVariantById(e.target.value);
+                        if (variant) {
+                          setFeaturedAsset(variant!.featuredAsset);
+                        }
+                      }}
+                    >
+                      {product.variants.map((variant) => (
+                        <option key={variant.id} value={variant.id}>
+                          {variant.name}
+                        </option>
+                      ))}
+                    </SfSelect>
+                  </label>
                 </div>
               ) : (
                 <input
@@ -195,7 +203,7 @@ export default function ProductSlug() {
                 ></input>
               )}
 
-              <div className="mt-10 flex flex-col sm:flex-row sm:items-center">
+              <div className="mt-10 flex flex-col gap-3">
                 <p className="text-3xl text-gray-900 mr-4">
                   <Price
                     priceWithTax={selectedVariant?.priceWithTax}
@@ -203,14 +211,14 @@ export default function ProductSlug() {
                   ></Price>
                 </p>
                 <div className="flex sm:flex-col1 align-baseline">
-                  <button
+                  <SfButton
                     type="submit"
                     className={`max-w-xs flex-1 ${
                       activeOrderFetcher.state !== 'idle'
                         ? 'bg-gray-400'
                         : qtyInCart === 0
-                        ? 'bg-primary-600 hover:bg-primary-700'
-                        : 'bg-green-600 active:bg-green-700 hover:bg-green-700'
+                        ? 'bg-primary-500 hover:bg-primary-700'
+                        : 'bg-green-500 active:bg-green-700 hover:bg-green-700'
                     }
                                      transition-colors border border-transparent rounded-md py-3 px-8 flex items-center
                                       justify-center text-base font-medium text-white focus:outline-none
@@ -218,28 +226,19 @@ export default function ProductSlug() {
                     disabled={activeOrderFetcher.state !== 'idle'}
                   >
                     {qtyInCart ? (
-                      <span className="flex items-center">
-                        <CheckIcon className="w-5 h-5 mr-1" /> {qtyInCart} in
-                        cart
+                      <span className="flex items-center gap-2">
+                        <SfIconShoppingCartCheckout /> {qtyInCart} in cart
                       </span>
                     ) : (
-                      `Add to cart`
+                      <span className="flex gap-2 items-center">
+                        <SfIconAddShoppingCart />
+                        Add to cart
+                      </span>
                     )}
-                  </button>
-
-                  <button
-                    type="button"
-                    className="ml-4 py-3 px-3 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500"
-                  >
-                    <HeartIcon
-                      className="h-6 w-6 flex-shrink-0"
-                      aria-hidden="true"
-                    />
-                    <span className="sr-only">Add to favorites</span>
-                  </button>
+                  </SfButton>
                 </div>
               </div>
-              <div className="mt-2 flex items-center space-x-2">
+              <div className="mt-3 flex items-center space-x-2">
                 <span className="text-gray-500">{selectedVariant?.sku}</span>
                 <StockLevelLabel stockLevel={selectedVariant?.stockLevel} />
               </div>
@@ -249,24 +248,29 @@ export default function ProductSlug() {
                 </div>
               )}
 
-              <section className="mt-12 pt-12 border-t text-xs">
-                <h3 className="text-gray-600 font-bold mb-2">
+              <section className="mt-12 pt-12 border-t ">
+                <h3 className="text-gray-600 font-light text-lg mb-2 ">
                   Shipping & Returns
                 </h3>
                 <div className="text-gray-500 space-y-1">
-                  <p>
+                  <div className="flex items-center gap-2">
+                    <SfIconPackage />
                     Standard shipping: 3 - 5 working days. Express shipping: 1 -
                     3 working days.
-                  </p>
-                  <p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <SfIconCreditCard />
                     Shipping costs depend on delivery address and will be
                     calculated during checkout.
-                  </p>
-                  <p>
-                    Returns are subject to terms. Please see the{' '}
-                    <span className="underline">returns page</span> for further
-                    information.
-                  </p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <SfIconCheckCircle />
+                    <span>
+                      Returns are subject to terms. Please see the{' '}
+                      <span className="underline">returns page</span> for
+                      further information.
+                    </span>
+                  </div>
                 </div>
               </section>
             </activeOrderFetcher.Form>
