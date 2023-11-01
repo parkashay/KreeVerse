@@ -1,5 +1,5 @@
 import { SearchQuery } from '~/generated/graphql';
-import { Link } from '@remix-run/react';
+import { Link, unstable_useViewTransitionState } from '@remix-run/react';
 import { Price } from './Price';
 import { SfLink } from '@storefront-ui/react';
 
@@ -11,10 +11,12 @@ export function ProductCard({
   priceWithTax,
   currencyCode,
 }: ProductCardProps) {
+  const isTransitioning = unstable_useViewTransitionState(`/products/${slug}`);
   return (
     <Link
       to={`/products/${slug}`}
       className="border mx-auto border-neutral-200 rounded-md hover:shadow-lg max-w-[300px]"
+      unstable_viewTransition
     >
       <div className="relative min-w-[200px]">
         <SfLink href="#" className="block">
@@ -24,6 +26,11 @@ export function ProductCard({
             className="object-cover h-auto  aspect-square"
             width="300"
             height="300"
+            style={
+              {
+                viewTransitionName: isTransitioning ? 'image-expand' : '',
+              } as any
+            }
           />
         </SfLink>
       </div>
