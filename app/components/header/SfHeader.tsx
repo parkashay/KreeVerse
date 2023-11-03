@@ -21,19 +21,19 @@ import { useScrollingUp } from '~/utils/use-scrolling-up';
 
 const actionItems = [
   {
-    icon: <SfIconShoppingCart />,
+    icon: <SfIconShoppingCart className="text-white hover:text-white/60" />,
     label: '',
     ariaLabel: 'Cart',
     role: 'button',
   },
   {
-    icon: <SfIconFavorite />,
+    icon: <SfIconFavorite className="text-white hover:text-white/60" />,
     label: '',
     ariaLabel: 'Wishlist',
     role: 'button',
   },
   {
-    icon: <SfIconPerson />,
+    icon: <SfIconPerson className="text-white hover:text-white/60" />,
     label: 'Log in',
     ariaLabel: 'Log in',
     role: 'login',
@@ -310,6 +310,19 @@ export default function SfHeader() {
               wrapperClassName="flex-1 h-10 pr-0"
               size="base"
               onChange={(event) => setInputValue(event.target.value)}
+              slotSuffix={
+                <span className="flex items-center">
+                  <SfButton
+                    variant="tertiary"
+                    square
+                    aria-label="search"
+                    type="submit"
+                    className="rounded-l-none hover:bg-transparent active:bg-transparent"
+                  >
+                    <SfIconSearch />
+                  </SfButton>
+                </span>
+              }
             />
           </form>
           <nav
@@ -318,7 +331,7 @@ export default function SfHeader() {
           >
             {actionItems.map((actionItem) => (
               <SfButton
-                className="text-white bg-transparent hover:bg-primary-800 hover:text-white active:bg-primary-900 active:text-white"
+                className="text-white bg-transparent "
                 key={actionItem.ariaLabel}
                 aria-label={actionItem.ariaLabel}
                 variant="tertiary"
@@ -342,7 +355,7 @@ export default function SfHeader() {
           <SfInput
             value={inputValue}
             type="search"
-            className="[&::-webkit-search-cancel-button]:appearance-none"
+            className="[&::-webkit-search-cancel-button]:appearance-none border-none outline-none"
             placeholder="Search"
             wrapperClassName="flex-1 h-10 pr-0"
             size="base"

@@ -2672,6 +2672,11 @@ button:disabled {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+#app .outline-none {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
 #app .outline {
   outline-style: solid;
   outline-width: 2px;
@@ -2877,6 +2882,10 @@ button:disabled {
   #app .hover\:\!text-neutral-900:hover {
     --tw-text-opacity: 1 !important;
     color: rgb(var(--colors-neutral-900) / var(--tw-text-opacity)) !important;
+  }
+
+  #app .hover\:text-white\/60:hover {
+    color: rgb(255 255 255 / 0.6);
   }
 
   #app .hover\:text-text:hover {
