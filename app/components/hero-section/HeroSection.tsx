@@ -1,7 +1,6 @@
-import React from 'react';
 import { SfButton } from '@storefront-ui/react';
 
-const HeroSection = () => {
+export default function Hero() {
   return (
     <div className="relative min-h-[600px]">
       <picture>
@@ -34,14 +33,8 @@ const HeroSection = () => {
             battery.
           </p>
           <div className="flex flex-col md:flex-row gap-4 mt-6">
-            <SfButton size="lg" className="bg-primary-400 hover:opacity-60">
-              {' '}
-              Order now{' '}
-            </SfButton>
-            <SfButton
-              size="lg"
-              className="!bg-white text-secondary-500 hover:opacity-60"
-            >
+            <SfButton size="lg"> Order now </SfButton>
+            <SfButton size="lg" className="bg-white" variant="secondary">
               Show more
             </SfButton>
           </div>
@@ -49,6 +42,4 @@ const HeroSection = () => {
       </div>
     </div>
   );
-};
-
-export default HeroSection;
+}
