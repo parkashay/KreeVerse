@@ -19,6 +19,11 @@ export default function Index() {
   return (
     <>
       <HeroSection />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 place-items-center w-full mt-6">
+        {collections.map((collection) => (
+          <CollectionCard collection={collection} key={collection.id} />
+        ))}
+      </div>
     </>
   );
 }

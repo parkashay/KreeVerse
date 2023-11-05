@@ -1,3 +1,4 @@
+import { Link, useNavigate } from '@remix-run/react';
 import {
   SfIconShoppingCart,
   SfIconFavorite,
@@ -28,19 +29,19 @@ import {
 
 const actionItems = [
   {
-    icon: <SfIconShoppingCart />,
+    icon: <SfIconShoppingCart className="text-white" />,
     label: '',
     ariaLabel: 'Cart',
     role: 'button',
   },
   {
-    icon: <SfIconFavorite />,
+    icon: <SfIconFavorite className="text-white" />,
     label: '',
     ariaLabel: 'Wishlist',
     role: 'button',
   },
   {
-    icon: <SfIconPerson />,
+    icon: <SfIconPerson className="text-white" />,
     label: 'Log in',
     ariaLabel: 'Log in',
     role: 'login',
@@ -386,11 +387,16 @@ const findNode = (keys: string[], node: Node): Node => {
   return node.children?.find((child) => child.key === keys[0]) || node;
 };
 
-export default function MegaMenuNavigation() {
+export default function MegaMenuNavigation({
+  onCartIconClick,
+}: {
+  onCartIconClick: () => void;
+}) {
   const drawerRef = useRef(null);
   const megaMenuRef = useRef(null);
   const [activeNode, setActiveNode] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState('');
+  const navigate = useNavigate();
 
   const refsByKey = useMemo(() => {
     const buttonRefs: Record<string, RefObject<HTMLButtonElement>> = {};
@@ -463,8 +469,8 @@ export default function MegaMenuNavigation() {
             >
               <SfIconMenu className="text-white" />
             </SfButton>
-            <a
-              href="#"
+            <Link
+              to="/"
               aria-label="SF Homepage"
               className="flex shrink-0 w-8 h-8 lg:w-[12.5rem] lg:h-[1.75rem] items-center text-white focus-visible:outline focus-visible:outline-offset focus-visible:rounded-sm"
             >
@@ -478,7 +484,7 @@ export default function MegaMenuNavigation() {
                   alt="Sf Logo"
                 />
               </picture>
-            </a>
+            </Link>
           </div>
           <form
             role="search"
@@ -509,22 +515,14 @@ export default function MegaMenuNavigation() {
             />
           </form>
           <nav className="flex flex-nowrap justify-end items-center md:ml-10 gap-x-1">
-            {actionItems.map((actionItem) => (
-              <SfButton
-                className="text-white bg-transparent hover:bg-primary-800 hover:text-white active:bg-primary-900 active:text-white"
-                key={actionItem.ariaLabel}
-                aria-label={actionItem.ariaLabel}
-                variant="tertiary"
-                slotPrefix={actionItem.icon}
-                square
-              >
-                {actionItem.role === 'login' && (
-                  <p className="hidden lg:inline-flex whitespace-nowrap mr-2">
-                    {actionItem.label}
-                  </p>
-                )}
-              </SfButton>
-            ))}
+            <SfButton
+              onClick={() => onCartIconClick()}
+              children={<SfIconShoppingCart />}
+            />
+            <SfButton
+              onClick={() => navigate('/sign-in')}
+              children={<SfIconPerson />}
+            />
           </nav>
           <form
             role="search"

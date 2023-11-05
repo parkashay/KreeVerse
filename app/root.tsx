@@ -13,7 +13,7 @@ import {
   MetaFunction,
 } from '@remix-run/react';
 import styles from './styles/app.css';
-import { Header } from './components/header/Header';
+import Header from './components/header/Header';
 import { DataFunctionArgs, json } from '@remix-run/server-runtime';
 import { getCollections } from '~/providers/collections/collections';
 import { activeChannel } from '~/providers/channel/channel';
@@ -114,6 +114,7 @@ export default function App() {
         <Header
           onCartIconClick={() => setOpen(!open)}
           cartQuantity={activeOrder?.totalQuantity ?? 0}
+          collections={collections}
         />
         <main className="">
           <Outlet
