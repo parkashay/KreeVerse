@@ -113,7 +113,7 @@ export default function ProductCardHorizontal({
                   ></Price>
                 </span> */}
           {editable && (
-            <div className="flex items-center justify-between mt-4 sm:mt-0">
+            <div className="flex items-center justify-between mt-4 sm:mt-0 gap-2">
               <div className="flex border border-neutral-300 rounded-md">
                 <SfButton
                   variant="tertiary"
@@ -159,16 +159,17 @@ export default function ProductCardHorizontal({
                   <SfIconAdd />
                 </SfButton>
               </div>
-              <button
+              <SfButton
                 aria-label="Remove"
+                variant="tertiary"
                 type="button"
-                className="text-neutral-500 text-xs font-light ml-auto flex items-center px-3 py-1.5"
+                className="text-red-500 hover:text-red-600 text-xs font-light ml-auto flex items-center px-3 py-1.5"
                 value={product.id}
                 onClick={() => removeItem && removeItem(product.id)}
               >
                 <SfIconDelete />
-                <span className="hidden ml-1.5 sm:block"> Remove </span>
-              </button>
+                <span className="hidden sm:block"> Remove </span>
+              </SfButton>
             </div>
           )}
         </div>

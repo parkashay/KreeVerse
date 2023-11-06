@@ -1,4 +1,4 @@
-import { Link, useNavigate } from '@remix-run/react';
+import { Form, Link, useNavigate } from '@remix-run/react';
 import {
   SfIconShoppingCart,
   SfIconFavorite,
@@ -16,6 +16,7 @@ import {
   useDisclosure,
   SfInput,
   SfIconSearch,
+  SfIconLogout,
 } from '@storefront-ui/react';
 import {
   type FocusEvent,
@@ -26,6 +27,11 @@ import {
   createRef,
   RefObject,
 } from 'react';
+import {
+  ActiveCustomerQuery,
+  CollectionList,
+  Customer,
+} from '~/generated/graphql';
 
 type Node = {
   key: string;
@@ -370,16 +376,19 @@ export default function Header({
   onCartIconClick,
   cartQuantity,
   collections,
+  activeCustomer,
 }: {
   onCartIconClick: () => void;
   cartQuantity: number;
   collections: any;
+  activeCustomer: ActiveCustomerQuery | undefined;
 }) {
   const drawerRef = useRef(null);
   const megaMenuRef = useRef(null);
   const [activeNode, setActiveNode] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState('');
   const navigate = useNavigate();
+  console.log(activeCustomer);
 
   const refsByKey = useMemo(() => {
     const buttonRefs: Record<string, RefObject<HTMLButtonElement>> = {};
@@ -469,10 +478,13 @@ export default function Header({
               </picture>
             </Link>
           </div>
-          <form
+          <Form
             role="search"
             className="hidden md:flex flex-[100%] ml-10"
-            onSubmit={search}
+            onSubmit={(e) => {
+              e.preventDefault();
+              navigate(`/search?q=${inputValue}`);
+            }}
           >
             <SfInput
               value={inputValue}
@@ -496,7 +508,7 @@ export default function Header({
               }
               onChange={(event) => setInputValue(event.target.value)}
             />
-          </form>
+          </Form>
           <nav className="flex flex-nowrap justify-end items-center md:ml-10 gap-x-1">
             <SfButton onClick={() => onCartIconClick()} className="relative">
               {' '}
@@ -509,15 +521,24 @@ export default function Header({
                 ''
               )}{' '}
             </SfButton>
-            <SfButton
-              onClick={() => navigate('/sign-in')}
-              children={<SfIconPerson />}
-            />
+            {!activeCustomer ? (
+              <SfButton
+                onClick={() => navigate('/sign-in')}
+                children={<SfIconPerson />}
+              />
+            ) : (
+              <Form action="/api/logout" method="post">
+                <SfButton type="submit" children={<SfIconLogout />} />
+              </Form>
+            )}
           </nav>
-          <form
+          <Form
             role="search"
             className="flex md:hidden flex-[100%] my-2"
-            onSubmit={search}
+            onSubmit={(e) => {
+              e.preventDefault();
+              navigate(`/search?q=${inputValue}`);
+            }}
           >
             <SfInput
               value={inputValue}
@@ -541,7 +562,7 @@ export default function Header({
               }
               onChange={(event) => setInputValue(event.target.value)}
             />
-          </form>
+          </Form>
         </div>
         {/* Desktop dropdown */}
         <nav ref={refs.setFloating}>

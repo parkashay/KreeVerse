@@ -24,6 +24,7 @@ import { getActiveCustomer } from '~/providers/customer/customer';
 import Footer from '~/components/footer/Footer';
 import { useActiveOrder } from '~/utils/use-active-order';
 import { setApiUrl } from '~/graphqlWrapper';
+import { ActiveCustomerQuery } from './generated/graphql';
 
 export const meta: MetaFunction = () => {
   return [{ title: APP_META_TITLE }, { description: APP_META_DESCRIPTION }];
@@ -85,7 +86,7 @@ export async function loader({ request, params, context }: DataFunctionArgs) {
 export default function App() {
   const [open, setOpen] = useState(false);
   const loaderData = useLoaderData<RootLoaderData>();
-  const { collections } = loaderData;
+  const { collections, activeCustomer } = loaderData;
   const {
     activeOrderFetcher,
     activeOrder,
@@ -114,7 +115,12 @@ export default function App() {
         <Header
           onCartIconClick={() => setOpen(!open)}
           cartQuantity={activeOrder?.totalQuantity ?? 0}
-          collections={collections}
+          collections={collections as any}
+          activeCustomer={
+            activeCustomer?.activeCustomer
+              ? (activeCustomer.activeCustomer as ActiveCustomerQuery)
+              : undefined
+          }
         />
         <main className="">
           <Outlet
@@ -129,7 +135,7 @@ export default function App() {
         <CartTray
           open={open}
           onClose={setOpen}
-          activeOrder={activeOrder}
+          activeOrder={activeOrder as any}
           adjustOrderLine={adjustOrderLine}
           removeItem={removeItem}
         />
