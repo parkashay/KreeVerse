@@ -4,6 +4,14 @@ import { Button } from '~/components/Button';
 import { ComponentProps } from 'react';
 import { useNavigation } from '@remix-run/react';
 import clsx from 'clsx';
+import { Fragment } from 'react';
+import {
+  SfButton,
+  SfIconChevronLeft,
+  SfIconChevronRight,
+  usePagination,
+} from '@storefront-ui/react';
+import classNames from 'classnames';
 
 export type PaginationProps = {
   appliedPaginationLimit: number;
@@ -21,6 +29,23 @@ export function Pagination({
 }: PaginationProps & ComponentProps<'div'>) {
   const navigation = useNavigation();
 
+  const {
+    totalPages,
+    pages,
+    selectedPage,
+    startPage,
+    endPage,
+    next,
+    prev,
+    setPage,
+    maxVisiblePages,
+  } = usePagination({
+    totalItems: totalItems,
+    currentPage: 2,
+    pageSize: 10,
+    maxPages: 1,
+  });
+  console.log(appliedPaginationLimit,allowedPaginationLimits,totalItems, appliedPaginationPage)
   return (
     <div
       {...props}
