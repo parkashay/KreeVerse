@@ -570,23 +570,86 @@ export default function Header({
             className="hidden md:flex px-6 py-2 bg-white border-b border-b-neutral-200 border-b-solid gap-2"
             onBlur={handleBlurWithin}
           >
-            {collections.map((collection: any) => {
-              return (
-                <li key={collection.id}>
-                  {' '}
-                  <SfButton
-                    onClick={() => navigate(`/collections/${collection?.slug}`)}
-                    variant="tertiary"
-                  >
-                    {' '}
-                    {collection.name}{' '}
-                  </SfButton>
-                </li>
-              );
-            })}
+            {content.children?.map((collection) => (
+              <li key={collection.key}>
+                <SfButton
+                  variant="tertiary"
+                  onMouseEnter={handleOpenMenu([collection.key])}
+                  onClick={() => navigate(`/collections/${collection.key}`)}
+                  ref={refsByKey[collection.key]}
+                  className="group mr-2 !text-neutral-900 hover:!bg-neutral-200 hover:!text-neutral-700 active:!bg-neutral-300 active:!text-neutral-900"
+                >
+                  <span>{collection.value.label}</span>
+                  <SfIconChevronRight className="rotate-90 text-neutral-500 group-hover:text-neutral-700 group-active:text-neutral-900" />
+                </SfButton>
+
+                {isOpen &&
+                  activeNode.length === 1 &&
+                  activeNode[0] === collection.key && (
+                    <div
+                      key={activeMenu.key}
+                      style={style}
+                      ref={megaMenuRef}
+                      className="hidden md:grid gap-x-6 grid-cols-4 bg-white shadow-lg p-6 left-0 right-0 outline-none"
+                      tabIndex={0}
+                      onMouseLeave={close}
+                    >
+                      {activeMenu.children?.map((node) =>
+                        node.isLeaf ? (
+                          <Fragment key={node.key}>
+                            <SfListItem
+                              as="a"
+                              size="sm"
+                              href={node.value.link}
+                              className="typography-text-sm mb-2"
+                              onClick={() => navigate(`/collections`)}
+                            >
+                              {node.value.label}
+                            </SfListItem>
+                            <div className="col-start-2 col-end-5" />
+                          </Fragment>
+                        ) : (
+                          <div key={node.key}>
+                            <p className="typography-text-base font-medium text-neutral-900 whitespace-nowrap px-4 py-1.5 border-b border-b-neutral-200 border-b-solid">
+                              {node.value.label}
+                            </p>
+                            <ul className="mt-2">
+                              {node.children?.map(
+                                (child) =>
+                                  child.isLeaf && (
+                                    <li key={child.key}>
+                                      <SfListItem
+                                        as="a"
+                                        size="sm"
+                                        href={child.value.link}
+                                        className="typography-text-sm py-1.5"
+                                        onClick={() => navigate(`/collections`)}
+                                      >
+                                        {child.value.label}
+                                      </SfListItem>
+                                    </li>
+                                  ),
+                              )}
+                            </ul>
+                          </div>
+                        ),
+                      )}
+                      <div className="flex flex-col items-center justify-center overflow-hidden rounded-md bg-neutral-100 border-neutral-300 grow">
+                        <img
+                          src={bannerNode.value.banner}
+                          alt={bannerNode.value.bannerTitle}
+                          className="object-contain"
+                        />
+                        <p className="px-4 mt-4 mb-4 font-medium text-center typography-text-base">
+                          {bannerNode.value.bannerTitle}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+              </li>
+            ))}
           </ul>
         </nav>
-        {/* Mobile drawer */}
         {isOpen && (
           <>
             <div className="md:hidden fixed inset-0 bg-neutral-500 bg-opacity-50" />

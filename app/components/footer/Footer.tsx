@@ -214,7 +214,7 @@ export default function FooterBasic() {
           </div>
         ))}
       </div>
-      <div className="bg-neutral-900 justify-end px-4 py-10 md:flex md:py-6 max-w-[1536px] mx-auto">
+      <div className="bg-neutral-900 justify-end px-14 py-10 md:flex md:py-6 max-w-[1536p] w-full mx-auto">
         <div className="flex justify-center py-2 gap-x-4 md:self-start">
           {socialMedia.map(({ icon: Icon, label, link }) => (
             <SfButton
