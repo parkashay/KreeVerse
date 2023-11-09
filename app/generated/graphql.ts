@@ -3850,6 +3850,12 @@ export type CollectionsQuery = {
         id: string;
         preview: string;
       } | null;
+      children?: Array<{
+        __typename?: 'Collection';
+        id: string;
+        name: string;
+        slug: string;
+      }> | null;
     }>;
   };
 };
@@ -5366,6 +5372,11 @@ export const CollectionsDocument = gql`
         featuredAsset {
           id
           preview
+        }
+        children {
+          id
+          name
+          slug
         }
       }
     }

@@ -26,6 +26,11 @@ gql`
           id
           preview
         }
+        children {
+          id
+          name
+          slug
+        }
       }
     }
   }

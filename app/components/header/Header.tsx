@@ -27,10 +27,11 @@ import {
   createRef,
   RefObject,
 } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import {
   ActiveCustomerQuery,
-  CollectionList,
-  Customer,
+  Collection,
+  CollectionQuery,
 } from '~/generated/graphql';
 
 type Node = {
@@ -388,7 +389,6 @@ export default function Header({
   const [activeNode, setActiveNode] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState('');
   const navigate = useNavigate();
-  console.log(activeCustomer);
 
   const refsByKey = useMemo(() => {
     const buttonRefs: Record<string, RefObject<HTMLButtonElement>> = {};
@@ -440,11 +440,6 @@ export default function Header({
     if (!event.currentTarget.contains(event.relatedTarget)) {
       close();
     }
-  };
-
-  const search = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    alert(`Successfully found 10 results for ${inputValue}`);
   };
 
   return (
@@ -570,84 +565,63 @@ export default function Header({
             className="hidden md:flex px-6 py-2 bg-white border-b border-b-neutral-200 border-b-solid gap-2"
             onBlur={handleBlurWithin}
           >
-            {content.children?.map((collection) => (
-              <li key={collection.key}>
-                <SfButton
-                  variant="tertiary"
-                  onMouseEnter={handleOpenMenu([collection.key])}
-                  onClick={() => navigate(`/collections/${collection.key}`)}
-                  ref={refsByKey[collection.key]}
-                  className="group mr-2 !text-neutral-900 hover:!bg-neutral-200 hover:!text-neutral-700 active:!bg-neutral-300 active:!text-neutral-900"
-                >
-                  <span>{collection.value.label}</span>
-                  <SfIconChevronRight className="rotate-90 text-neutral-500 group-hover:text-neutral-700 group-active:text-neutral-900" />
-                </SfButton>
+            {collections.map((collection: Collection) => {
+              return (
+                <li key={collection.id}>
+                  <SfButton
+                    variant="tertiary"
+                    onMouseEnter={handleOpenMenu([collection.id])}
+                    onClick={() => navigate(`/collections/${collection.slug}`)}
+                    ref={refsByKey[collection.id]}
+                    className="group mr-2 !text-neutral-900 hover:!bg-neutral-200 hover:!text-neutral-700 active:!bg-neutral-300 active:!text-neutral-900"
+                  >
+                    <span>{collection.name}</span>
+                    <SfIconChevronRight className="rotate-90 text-neutral-500 group-hover:text-neutral-700 group-active:text-neutral-900" />
+                  </SfButton>
 
-                {isOpen &&
-                  activeNode.length === 1 &&
-                  activeNode[0] === collection.key && (
-                    <div
-                      key={activeMenu.key}
-                      style={style}
-                      ref={megaMenuRef}
-                      className="hidden md:grid gap-x-6 grid-cols-4 bg-white shadow-lg p-6 left-0 right-0 outline-none"
-                      tabIndex={0}
-                      onMouseLeave={close}
-                    >
-                      {activeMenu.children?.map((node) =>
-                        node.isLeaf ? (
-                          <Fragment key={node.key}>
+                  {isOpen &&
+                    activeNode.length === 1 &&
+                    activeNode[0] === collection.id && (
+                      <div
+                        key={collection.id}
+                        style={style}
+                        ref={megaMenuRef}
+                        className="hidden md:grid gap-x-6 grid-cols-4 bg-white shadow-lg p-6 left-0 right-0 outline-none"
+                        tabIndex={0}
+                        onMouseLeave={close}
+                      >
+                        {collection.children?.map((node) => (
+                          <Fragment key={node.id}>
                             <SfListItem
                               as="a"
                               size="sm"
-                              href={node.value.link}
+                              href={`/collections/${node.slug}`}
                               className="typography-text-sm mb-2"
-                              onClick={() => navigate(`/collections`)}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                navigate(`/collections/${node.slug}`);
+                              }}
                             >
-                              {node.value.label}
+                              {node.name}
                             </SfListItem>
                             <div className="col-start-2 col-end-5" />
                           </Fragment>
-                        ) : (
-                          <div key={node.key}>
-                            <p className="typography-text-base font-medium text-neutral-900 whitespace-nowrap px-4 py-1.5 border-b border-b-neutral-200 border-b-solid">
-                              {node.value.label}
-                            </p>
-                            <ul className="mt-2">
-                              {node.children?.map(
-                                (child) =>
-                                  child.isLeaf && (
-                                    <li key={child.key}>
-                                      <SfListItem
-                                        as="a"
-                                        size="sm"
-                                        href={child.value.link}
-                                        className="typography-text-sm py-1.5"
-                                        onClick={() => navigate(`/collections`)}
-                                      >
-                                        {child.value.label}
-                                      </SfListItem>
-                                    </li>
-                                  ),
-                              )}
-                            </ul>
-                          </div>
-                        ),
-                      )}
-                      <div className="flex flex-col items-center justify-center overflow-hidden rounded-md bg-neutral-100 border-neutral-300 grow">
-                        <img
-                          src={bannerNode.value.banner}
-                          alt={bannerNode.value.bannerTitle}
-                          className="object-contain"
-                        />
-                        <p className="px-4 mt-4 mb-4 font-medium text-center typography-text-base">
-                          {bannerNode.value.bannerTitle}
-                        </p>
+                        ))}
+                        <div className="flex flex-col items-center justify-center overflow-hidden rounded-md bg-neutral-100 border-neutral-300 grow">
+                          <img
+                            src={collection.featuredAsset?.preview}
+                            alt={collection.name}
+                            className="object-contain"
+                          />
+                          <p className="px-4 mt-4 mb-4 font-medium text-center typography-text-base">
+                            {collection.name}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  )}
-              </li>
-            ))}
+                    )}
+                </li>
+              );
+            })}
           </ul>
         </nav>
         {isOpen && (
@@ -675,64 +649,92 @@ export default function Header({
                     <SfIconClose className="text-neutral-500" />
                   </SfButton>
                 </div>
-                <ul className="mt-2 mb-6">
-                  {activeMenu.key !== 'root' && (
-                    <li>
-                      <SfListItem
-                        size="lg"
-                        as="button"
-                        type="button"
-                        onClick={handleBack}
-                        className="border-b border-b-neutral-200 border-b-solid"
+
+                {/* Mobile Navbar */}
+                <nav>
+                  <ul>
+                    <li role="none">
+                      <CSSTransition
+                        in={isOpen}
+                        timeout={500}
+                        unmountOnExit
+                        classNames={{
+                          enter:
+                            '-translate-x-full md:opacity-0 md:translate-x-0',
+                          enterActive:
+                            'translate-x-0 md:opacity-100 transition duration-500 ease-in-out',
+                          exitActive:
+                            '-translate-x-full md:opacity-0 md:translate-x-0 transition duration-500 ease-in-out',
+                        }}
                       >
-                        <div className="flex items-center">
-                          <SfIconArrowBack className="text-neutral-500" />
-                          <p className="ml-5 font-medium">
-                            {activeMenu.value.label}
-                          </p>
-                        </div>
-                      </SfListItem>
-                    </li>
-                  )}
-                  {activeMenu.children?.map((node) =>
-                    node.isLeaf ? (
-                      <li key={node.key}>
-                        <SfListItem
-                          size="lg"
-                          as="a"
-                          href={node.value.link}
-                          className="first-of-type:mt-2"
+                        <SfDrawer
+                          ref={drawerRef}
+                          open
+                          disableClickAway
+                          placement="top"
+                          className="grid grid-cols-1 md:gap-x-6 md:grid-cols-4 bg-white shadow-lg p-0 max-h-screen overflow-y-auto md:!absolute md:!top-20 max-w-[376px] md:max-w-full md:p-6 mr-[50px] md:mr-0"
                         >
-                          <div className="flex items-center">
-                            <p className="text-left">{node.value.label}</p>
-                            <SfCounter className="ml-2">
-                              {node.value.counter}
-                            </SfCounter>
-                          </div>
-                        </SfListItem>
-                      </li>
-                    ) : (
-                      <li key={node.key}>
-                        <SfListItem
-                          size="lg"
-                          as="button"
-                          type="button"
-                          onClick={handleNext(node.key)}
-                        >
-                          <div className="flex justify-between items-center">
-                            <div className="flex items-center">
-                              <p className="text-left">{node.value.label}</p>{' '}
-                              <SfCounter className="ml-2">
-                                {node.value.counter}
-                              </SfCounter>
+                          <div className="sticky top-0 flex items-center justify-between px-4 py-2 bg-primary-700 md:hidden">
+                            <div className="flex items-center font-medium text-white typography-text-lg">
+                              Browse products
                             </div>
-                            <SfIconChevronRight className="text-neutral-500" />
+                            <SfButton
+                              square
+                              variant="tertiary"
+                              aria-label="Close navigation menu"
+                              onClick={close}
+                              className="text-white ml-2"
+                            >
+                              <SfIconClose />
+                            </SfButton>
                           </div>
-                        </SfListItem>
-                      </li>
-                    ),
-                  )}
-                </ul>
+                          {collections.map(
+                            (heading: Collection, items: number) => (
+                              <div
+                                key={heading.id}
+                                className="[&:nth-child(2)]:pt-0 pt-6 md:pt-0"
+                              >
+                                <h2
+                                  role="presentation"
+                                  className="typography-text-base font-medium text-neutral-900 whitespace-nowrap p-4 md:py-1.5"
+                                >
+                                  {heading.name}
+                                </h2>
+                                <hr className="mb-3.5" />
+                                <ul>
+                                  {heading?.children?.map((item) => (
+                                    <li key={item.id}>
+                                      <SfListItem
+                                        as="a"
+                                        size="sm"
+                                        role="none"
+                                        href={`/collections/${item.slug}`}
+                                        className="typography-text-base md:typography-text-sm py-4 md:py-1.5"
+                                      >
+                                        {item.name}
+                                      </SfListItem>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ),
+                          )}
+
+                          <SfButton
+                            square
+                            size="sm"
+                            variant="tertiary"
+                            aria-label="Close navigation menu"
+                            onClick={close}
+                            className="hidden md:block md:absolute md:right-0 hover:bg-white active:bg-white"
+                          >
+                            <SfIconClose className="text-neutral-500" />
+                          </SfButton>
+                        </SfDrawer>
+                      </CSSTransition>
+                    </li>
+                  </ul>
+                </nav>
                 {bannerNode.value.banner && (
                   <div className="flex items-center overflow-hidden bg-neutral-100 border-neutral-300 grow">
                     <img
