@@ -1,3 +1,4 @@
+import { SfInput, SfSelect } from '@storefront-ui/react';
 import { AvailableCountriesQuery, OrderAddress } from '~/generated/graphql';
 
 export function AddressForm({
@@ -16,16 +17,15 @@ export function AddressForm({
           htmlFor="fullName"
           className="block text-sm font-medium text-gray-700"
         >
-          First name
+          Full name
         </label>
         <div className="mt-1">
-          <input
+          <SfInput
             type="text"
             id="fullName"
             name="fullName"
             defaultValue={defaultFullName}
             autoComplete="given-name"
-            className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
           />
         </div>
       </div>
@@ -38,12 +38,11 @@ export function AddressForm({
           Company
         </label>
         <div className="mt-1">
-          <input
+          <SfInput
             type="text"
             name="company"
             id="company"
             defaultValue={address?.company ?? ''}
-            className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
           />
         </div>
       </div>
@@ -56,13 +55,12 @@ export function AddressForm({
           Address
         </label>
         <div className="mt-1">
-          <input
+          <SfInput
             type="text"
             name="streetLine1"
             id="streetLine1"
             defaultValue={address?.streetLine1 ?? ''}
             autoComplete="street-address"
-            className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
           />
         </div>
       </div>
@@ -75,12 +73,11 @@ export function AddressForm({
           Apartment, suite, etc.
         </label>
         <div className="mt-1">
-          <input
+          <SfInput
             type="text"
             name="streetLine2"
             id="streetLine2"
             defaultValue={address?.streetLine2 ?? ''}
-            className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
           />
         </div>
       </div>
@@ -93,13 +90,12 @@ export function AddressForm({
           City
         </label>
         <div className="mt-1">
-          <input
+          <SfInput
             type="text"
             name="city"
             id="city"
             autoComplete="address-level2"
             defaultValue={address?.city ?? ''}
-            className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
           />
         </div>
       </div>
@@ -113,18 +109,17 @@ export function AddressForm({
         </label>
         <div className="mt-1">
           {availableCountries && (
-            <select
+            <SfSelect
               id="countryCode"
               name="countryCode"
               defaultValue={address?.countryCode ?? 'US'}
-              className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
             >
               {availableCountries.map((item) => (
                 <option key={item.id} value={item.code}>
                   {item.name}
                 </option>
               ))}
-            </select>
+            </SfSelect>
           )}
         </div>
       </div>
@@ -137,13 +132,12 @@ export function AddressForm({
           State / Province
         </label>
         <div className="mt-1">
-          <input
+          <SfInput
             type="text"
             name="province"
             id="province"
             defaultValue={address?.province ?? ''}
             autoComplete="address-level1"
-            className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
           />
         </div>
       </div>
@@ -156,13 +150,12 @@ export function AddressForm({
           Postal code
         </label>
         <div className="mt-1">
-          <input
+          <SfInput
             type="text"
             name="postalCode"
             id="postalCode"
             defaultValue={address?.postalCode ?? ''}
             autoComplete="postal-code"
-            className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
           />
         </div>
       </div>
@@ -175,13 +168,12 @@ export function AddressForm({
           Phone
         </label>
         <div className="mt-1">
-          <input
+          <SfInput
             type="text"
             name="phoneNumber"
             id="phoneNumber"
             defaultValue={address?.phoneNumber ?? ''}
             autoComplete="tel"
-            className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
           />
         </div>
       </div>

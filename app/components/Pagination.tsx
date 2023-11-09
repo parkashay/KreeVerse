@@ -63,11 +63,16 @@ export function Pagination({
         props.className,
       )}
     >
-      <span className="flex gap-4 items-center">
+      <span className="flex gap-4 items-center ">
         {navigation.state !== 'idle' && (
-          <ArrowPathIcon className="animate-spin h-6 w-6 text-gray-500" />
+          <ArrowPathIcon className="  animate-spin  h-6 w-6 text-gray-500" />
         )}
-        <SfSelect name="limit" required defaultValue={appliedPaginationLimit}>
+        <SfSelect
+          name="limit"
+          required
+          defaultValue={appliedPaginationLimit}
+          className="min-w-[150px]"
+        >
           {Array.from(allowedPaginationLimits).map((x) => (
             <option key={x} value={x}>
               {x} per page

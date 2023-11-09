@@ -390,21 +390,17 @@ export default function Header({
   const [inputValue, setInputValue] = useState('');
   const navigate = useNavigate();
 
-  const refsByKey = useMemo(() => {
-    const buttonRefs: Record<string, RefObject<HTMLButtonElement>> = {};
-    content.children?.forEach((item) => {
-      buttonRefs[item.key] = createRef();
-    });
-    return buttonRefs;
-  }, [content.children]);
+  const { open, isOpen } = useDisclosure();
 
-  const { close, open, isOpen } = useDisclosure();
+  const close = () => {
+    const to = setTimeout(() => {
+      setActiveNode([]);
+    }, 700);
+  };
+
   const { refs, style } = useDropdown({
     isOpen,
     onClose: (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        refsByKey[activeNode[0]]?.current?.focus();
-      }
       close();
     },
     placement: 'bottom-start',
@@ -420,20 +416,9 @@ export default function Header({
   useTrapFocus(megaMenuRef, trapFocusOptions);
   useTrapFocus(drawerRef, trapFocusOptions);
 
-  const activeMenu = findNode(activeNode, content);
-  const bannerNode = findNode(activeNode.slice(0, 1), content);
-
   const handleOpenMenu = (menuType: string[]) => () => {
     setActiveNode(menuType);
     open();
-  };
-
-  const handleBack = () => {
-    setActiveNode((menu) => menu.slice(0, menu.length - 1));
-  };
-
-  const handleNext = (key: string) => () => {
-    setActiveNode((menu) => [...menu, key]);
   };
 
   const handleBlurWithin = (event: FocusEvent) => {
@@ -572,7 +557,6 @@ export default function Header({
                     variant="tertiary"
                     onMouseEnter={handleOpenMenu([collection.id])}
                     onClick={() => navigate(`/collections/${collection.slug}`)}
-                    ref={refsByKey[collection.id]}
                     className="group mr-2 !text-neutral-900 hover:!bg-neutral-200 hover:!text-neutral-700 active:!bg-neutral-300 active:!text-neutral-900"
                   >
                     <span>{collection.name}</span>
@@ -591,19 +575,18 @@ export default function Header({
                         onMouseLeave={close}
                       >
                         {collection.children?.map((node) => (
-                          <Fragment key={node.id}>
+                          <Fragment>
                             <SfListItem
-                              as="a"
                               size="sm"
-                              href={`/collections/${node.slug}`}
                               className="typography-text-sm mb-2"
                               onClick={(e) => {
-                                e.stopPropagation();
                                 navigate(`/collections/${node.slug}`);
+                                handleOpenMenu([collection.id]);
                               }}
                             >
                               {node.name}
                             </SfListItem>
+
                             <div className="col-start-2 col-end-5" />
                           </Fragment>
                         ))}
@@ -635,21 +618,6 @@ export default function Header({
               className="md:hidden right-[50px] max-w-[376px] bg-white overflow-y-auto"
             >
               <nav>
-                <div className="flex items-center justify-between p-4 border-b border-b-neutral-200 border-b-solid">
-                  <p className="typography-text-base font-medium">
-                    Browse products
-                  </p>
-                  <SfButton
-                    onClick={close}
-                    variant="tertiary"
-                    square
-                    aria-label="Close menu"
-                    className="ml-2"
-                  >
-                    <SfIconClose className="text-neutral-500" />
-                  </SfButton>
-                </div>
-
                 {/* Mobile Navbar */}
                 <nav>
                   <ul>
@@ -680,7 +648,7 @@ export default function Header({
                             </div>
                             <SfButton
                               square
-                              variant="tertiary"
+                              variant="primary"
                               aria-label="Close navigation menu"
                               onClick={close}
                               className="text-white ml-2"
@@ -735,18 +703,6 @@ export default function Header({
                     </li>
                   </ul>
                 </nav>
-                {bannerNode.value.banner && (
-                  <div className="flex items-center overflow-hidden bg-neutral-100 border-neutral-300 grow">
-                    <img
-                      src={bannerNode.value.banner}
-                      alt={bannerNode.value.bannerTitle}
-                      className="object-contain w-[50%] basis-6/12"
-                    />
-                    <p className="basis-6/12 p-6 font-medium typography-text-base">
-                      {bannerNode.value.bannerTitle}
-                    </p>
-                  </div>
-                )}
               </nav>
             </SfDrawer>
           </>

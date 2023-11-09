@@ -20,6 +20,7 @@ import { AddressForm } from '~/components/account/AddressForm';
 import { ShippingMethodSelector } from '~/components/checkout/ShippingMethodSelector';
 import { ShippingAddressSelector } from '~/components/checkout/ShippingAddressSelector';
 import { getActiveOrder } from '~/providers/orders/order';
+import { SfInput } from '@storefront-ui/react';
 
 export async function loader({ request }: DataFunctionArgs) {
   const session = await getSessionStorage().getSession(
@@ -174,13 +175,12 @@ export default function CheckoutShipping() {
                 Email address
               </label>
               <div className="mt-1">
-                <input
+                <SfInput
                   type="email"
                   id="emailAddress"
                   name="emailAddress"
                   autoComplete="email"
                   defaultValue={customer?.emailAddress}
-                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                 />
               </div>
               {error?.errorCode === 'EMAIL_ADDRESS_CONFLICT_ERROR' && (
@@ -198,13 +198,12 @@ export default function CheckoutShipping() {
                   First name
                 </label>
                 <div className="mt-1">
-                  <input
+                  <SfInput
                     type="text"
                     id="firstName"
                     name="firstName"
                     autoComplete="given-name"
                     defaultValue={customer?.firstName}
-                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                   />
                 </div>
               </div>
@@ -217,13 +216,12 @@ export default function CheckoutShipping() {
                   Last name
                 </label>
                 <div className="mt-1">
-                  <input
+                  <SfInput
                     type="text"
                     id="lastName"
                     name="lastName"
                     autoComplete="family-name"
                     defaultValue={customer?.lastName}
-                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                   />
                 </div>
               </div>
