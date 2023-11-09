@@ -8,7 +8,7 @@ import { withZod } from '@remix-validated-form/with-zod';
 import { paginationValidationSchema } from '~/utils/pagination';
 import { FilterableProductGrid } from '~/components/products/FilterableProductGrid';
 
-const paginationLimitMinimumDefault = 25;
+const paginationLimitMinimumDefault = 18;
 const allowedPaginationLimits = new Set<number>([
   paginationLimitMinimumDefault,
   50,

@@ -4,6 +4,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/solid';
 import { useSearchParams } from '@remix-run/react';
 import { FacetFilterTracker } from '~/components/facet-filter/facet-filter-tracker';
+import { SfCheckbox, SfThumbnail } from '@storefront-ui/react';
 
 export default function FacetFilterControls({
   facetFilterTracker,
@@ -166,21 +167,50 @@ export default function FacetFilterControls({
                   <div className="space-y-4">
                     {facet.values.map((value, optionIdx) => (
                       <div key={value.id} className="flex items-center">
-                        <input
-                          id={`filter-${facet.id}-${optionIdx}`}
-                          name={`fvid`}
-                          defaultValue={value.id}
-                          type="checkbox"
-                          checked={value.selected}
-                          onChange={() => {}}
-                          className="h-4 w-4 border-gray-300 rounded text-primary-600 focus:ring-primary-500"
-                        />
-                        <label
-                          htmlFor={`filter-${facet.id}-${optionIdx}`}
-                          className="ml-3 text-sm text-gray-600"
-                        >
-                          {value.name}
-                        </label>
+                        {facet.name.toLowerCase() === 'color' ? (
+                          <>
+                            <label
+                              htmlFor={`filter-${facet.id}-${optionIdx}`}
+                              className=" flex items-center lg:-translate-x-3 gap-3 text-sm text-gray-600 cursor-pointer"
+                            >
+                              <input
+                                id={`filter-${facet.id}-${optionIdx}`}
+                                name={'fvid'}
+                                defaultValue={value.id}
+                                checked={value.selected}
+                                className="appearance-none peer"
+                                type="checkbox"
+                                onChange={() => {}}
+                              />
+                              <span className="inline-flex items-center justify-center p-1 transition duration-300 rounded-full cursor-pointer ring-1 ring-neutral-200 ring-inset outline-offset-2 outline-secondary-600 peer-checked:ring-2 peer-checked:ring-primary-700 peer-hover:bg-primary-100 peer-[&:not(:checked):hover]:ring-primary-200 peer-active:bg-primary-200 peer-active:ring-primary-300 peer-disabled:cursor-not-allowed peer-disabled:bg-disabled-100 peer-disabled:opacity-50 peer-disabled:ring-1 peer-disabled:ring-disabled-200 peer-disabled:hover:ring-disabled-200 peer-checked:hover:ring-primary-700 peer-checked:active:ring-primary-700 peer-focus:outline">
+                                <SfThumbnail
+                                  size="sm"
+                                  className="bg-green-600"
+                                />
+                              </span>
+
+                              {value.name}
+                            </label>
+                          </>
+                        ) : (
+                          <>
+                            <SfCheckbox
+                              id={`filter-${facet.id}-${optionIdx}`}
+                              name={`fvid`}
+                              defaultValue={value.id}
+                              type="checkbox"
+                              checked={value.selected}
+                              onChange={() => {}}
+                              className="h-4 w-4 border-gray-300 rounded text-primary-600 focus:ring-primary-500"
+                            />
+                            <label
+                              htmlFor={`filter-${facet.id}-${optionIdx}`}
+                              className="ml-3 text-sm text-gray-600"
+                            >
+                              {value.name}
+                            </label>
+                          </>
+                        )}
                       </div>
                     ))}
                   </div>
