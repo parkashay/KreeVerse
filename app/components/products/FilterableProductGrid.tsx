@@ -52,8 +52,8 @@ export function FilterableProductGrid({
             ))}
           </div>
 
-          <div className="flex flex-row justify-between items-center gap-4">
-            <span className="self-start text-gray-500 text-sm mt-2">
+          <div className="flex flex-row justify-evenly items-center gap-4">
+            <span className="self-start text-gray-500 text-sm mt-2 w-fit">
               Showing products{' '}
               {translatePaginationFrom(
                 appliedPaginationPage,
@@ -71,6 +71,7 @@ export function FilterableProductGrid({
               allowedPaginationLimits={allowedPaginationLimits}
               totalItems={result.totalItems}
               appliedPaginationPage={appliedPaginationPage}
+              className="flex w-full justify-evenly flex-wrap"
             />
           </div>
         </div>
