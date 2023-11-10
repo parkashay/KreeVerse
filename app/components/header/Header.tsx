@@ -569,7 +569,7 @@ export default function Header({
                         onMouseLeave={close}
                       >
                         {collection.children?.map((node) => (
-                          <Fragment>
+                          <Fragment key={node.id}>
                             <SfListItem
                               size="sm"
                               className="typography-text-sm mb-2"
