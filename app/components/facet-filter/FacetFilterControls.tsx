@@ -156,7 +156,7 @@ export default function FacetFilterControls({
               }}
             >
               {' '}
-              <SfIconCancel className="text-red-500" />{' '}
+              <SfIconCancel className="text-slate-300" />{' '}
             </SfButton>
           </div>
         )}
@@ -242,20 +242,20 @@ export default function FacetFilterControls({
             )}
           </Disclosure>
         ))}
-        <SfButton
-          variant="secondary"
-          className="my-3"
-          onClick={() => {
-            console.log('ok');
-
-            setSearchParams((params) => {
-              params.delete('fvid');
-              return params;
-            });
-          }}
-        >
-          Clear all Filters
-        </SfButton>
+        {searchParams.getAll('fvid').length > 0 && (
+          <SfButton
+            variant="secondary"
+            className="my-3"
+            onClick={() => {
+              setSearchParams((params) => {
+                params.delete('fvid');
+                return params;
+              });
+            }}
+          >
+            Clear all Filters
+          </SfButton>
+        )}
       </div>
     </>
   );
