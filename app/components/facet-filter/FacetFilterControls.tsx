@@ -4,7 +4,12 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/solid';
 import { useSearchParams } from '@remix-run/react';
 import { FacetFilterTracker } from '~/components/facet-filter/facet-filter-tracker';
-import { SfCheckbox, SfThumbnail } from '@storefront-ui/react';
+import {
+  SfButton,
+  SfCheckbox,
+  SfIconCancel,
+  SfThumbnail,
+} from '@storefront-ui/react';
 
 export default function FacetFilterControls({
   facetFilterTracker,
@@ -15,7 +20,7 @@ export default function FacetFilterControls({
   mobileFiltersOpen: boolean;
   setMobileFiltersOpen: (value: boolean) => void;
 }) {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.getAll('q');
 
   return (
@@ -99,7 +104,7 @@ export default function FacetFilterControls({
                                   key={value.id}
                                   className="flex items-center"
                                 >
-                                  <input
+                                  <SfCheckbox
                                     id={`filter-mobile-${facet.id}-${optionIdx}`}
                                     defaultValue={value.id}
                                     type="checkbox"
@@ -134,9 +139,27 @@ export default function FacetFilterControls({
           </div>
         </Dialog>
       </Transition.Root>
-
       <div className="hidden lg:block">
         <input type="hidden" name="q" value={q} />
+        {searchParams.getAll('fvid').length > 0 && (
+          <div className="bg-slate-200 px-3 flex items-center justify-evenly rounded">
+            {' '}
+            Applied filters: <b>{searchParams.getAll('fvid').length} </b>
+            <SfButton
+              variant="tertiary"
+              className="hover:bg-transparent"
+              onClick={() => {
+                setSearchParams((params) => {
+                  params.delete('fvid');
+                  return params;
+                });
+              }}
+            >
+              {' '}
+              <SfIconCancel className="text-red-500" />{' '}
+            </SfButton>
+          </div>
+        )}
         {facetFilterTracker.facetsWithValues.map((facet) => (
           <Disclosure
             as="div"
@@ -219,6 +242,20 @@ export default function FacetFilterControls({
             )}
           </Disclosure>
         ))}
+        <SfButton
+          variant="secondary"
+          className="my-3"
+          onClick={() => {
+            console.log('ok');
+
+            setSearchParams((params) => {
+              params.delete('fvid');
+              return params;
+            });
+          }}
+        >
+          Clear all Filters
+        </SfButton>
       </div>
     </>
   );

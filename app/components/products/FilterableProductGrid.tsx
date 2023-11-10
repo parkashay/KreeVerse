@@ -53,7 +53,7 @@ export function FilterableProductGrid({
           </div>
 
           <div className="flex flex-row justify-evenly items-center gap-4">
-            <span className="self-start text-gray-500 text-sm mt-2 w-fit">
+            <span className=" text-gray-500 text-sm mt-2 lg:w-[300px]">
               Showing products{' '}
               {translatePaginationFrom(
                 appliedPaginationPage,
