@@ -68,6 +68,26 @@ export default function FacetFilterControls({
                 </div>
                 <div className="mt-4 border-t border-gray-200">
                   <input type="hidden" name="q" value={q} />
+                  {searchParams.getAll('fvid').length > 0 && (
+                    <div className="bg-slate-100 px-3 flex items-center justify-evenly rounded">
+                      {' '}
+                      Applied filters:{' '}
+                      <b>{searchParams.getAll('fvid').length} </b>
+                      <SfButton
+                        variant="tertiary"
+                        className="hover:bg-transparent"
+                        onClick={() => {
+                          setSearchParams((params) => {
+                            params.delete('fvid');
+                            return params;
+                          });
+                        }}
+                      >
+                        {' '}
+                        <SfIconCancel className="text-slate-300" />{' '}
+                      </SfButton>
+                    </div>
+                  )}
                   {facetFilterTracker.facetsWithValues.map((facet) => (
                     <Disclosure
                       as="div"
