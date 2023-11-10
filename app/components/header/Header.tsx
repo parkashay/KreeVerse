@@ -392,12 +392,6 @@ export default function Header({
 
   const { open, isOpen, close } = useDisclosure();
 
-  const closeDropdown = () => {
-    const to = setTimeout(() => {
-      setActiveNode([]);
-    }, 700);
-  };
-
   const { refs, style } = useDropdown({
     isOpen,
     onClose: (event: KeyboardEvent) => {
@@ -572,7 +566,7 @@ export default function Header({
                         ref={megaMenuRef}
                         className="hidden md:grid gap-x-6 grid-cols-4 bg-white shadow-lg p-6 left-0 right-0 outline-none"
                         tabIndex={0}
-                        onMouseLeave={closeDropdown}
+                        onMouseLeave={close}
                       >
                         {collection.children?.map((node) => (
                           <Fragment>
