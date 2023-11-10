@@ -46,7 +46,7 @@ export function FilterableProductGrid({
       />
       {result.items.length > 0 ? (
         <div className="sm:col-span-5 lg:col-span-4 space-y-6">
-          <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+          <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 place-items-center">
             {result.items.map((item) => (
               <ProductCard key={item.productId} {...item} />
             ))}

@@ -142,7 +142,7 @@ export default function FacetFilterControls({
       <div className="hidden lg:block">
         <input type="hidden" name="q" value={q} />
         {searchParams.getAll('fvid').length > 0 && (
-          <div className="bg-slate-200 px-3 flex items-center justify-evenly rounded">
+          <div className="bg-slate-100 px-3 flex items-center justify-evenly rounded">
             {' '}
             Applied filters: <b>{searchParams.getAll('fvid').length} </b>
             <SfButton
