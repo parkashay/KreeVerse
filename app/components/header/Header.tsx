@@ -484,12 +484,11 @@ export default function Header({
             />
           </Form>
           <nav className="flex flex-nowrap justify-end items-center md:ml-10 gap-x-1">
-            <SfButton onClick={() => onCartIconClick()} className="relative">
-              {' '}
-              <SfIconShoppingCart />{' '}
+            <SfButton onClick={() => onCartIconClick()} className="relative shadow-none hover:shadow-none hover:bg-opacity-0 active:shadow-none active:bg-opacity-0">
+              <SfIconShoppingCart />
               {cartQuantity > 0 ? (
-                <span className="bg-white rounded-full h-6 w-6 text-primary-400 absolute -top-2 -left-2">
-                  {cartQuantity}{' '}
+                <span className="bg-white rounded-full h-6 w-6 text-primary-400 absolute -top-1 -right-1">
+                  {cartQuantity}
                 </span>
               ) : (
                 ''
@@ -499,6 +498,7 @@ export default function Header({
               <SfButton
                 onClick={() => navigate('/sign-in')}
                 children={<SfIconPerson />}
+                className="shadow-none hover:shadow-none hover:bg-opacity-0 active:shadow-none active:bg-opacity-0"
               />
             ) : (
               <Form action="/api/logout" method="post">
