@@ -369,81 +369,85 @@ export default function ProductSlug() {
                   value={selectedVariantId}
                 ></input>
               )}
-            </activeOrderFetcher.Form>
-            <div className="py-4 mb-4 border-gray-200 border-y">
-              <div className="bg-primary-100 text-primary-700 flex justify-center gap-1.5 py-1.5 typography-text-sm items-center mb-4 rounded-md">
-                <SfIconShoppingCartCheckout />
-                {qtyInCart} in cart
-              </div>
-              <div className="items-start xs:flex">
-                <div className="flex flex-col items-stretch xs:items-center xs:inline-flex">
-                  <div className="flex border border-neutral-300 rounded-md">
-                    <SfButton
-                      variant="tertiary"
-                      square
-                      className="rounded-r-none p-3"
-                      disabled={value <= min}
-                      aria-controls={inputId}
-                      aria-label="Decrease value"
-                      onClick={() => {
-                        dec();
-                        // adjustOrderLine &&
-                        //   adjustOrderLine(product.id, value - 1);
-                      }}
-                    >
-                      <SfIconRemove />
-                    </SfButton>
-                    <input
-                      id={inputId}
-                      type="number"
-                      role="spinbutton"
-                      className="grow appearance-none mx-2 w-8 text-center bg-transparent font-medium [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:display-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-outer-spin-button]:display-none [&::-webkit-outer-spin-button]:m-0 [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none disabled:placeholder-disabled-900 focus-visible:outline focus-visible:outline-offset focus-visible:rounded-sm"
-                      min={min}
-                      max={max}
-                      value={value}
-                      onChange={handleOnChange}
-                    />
-                    <SfButton
-                      variant="tertiary"
-                      square
-                      className="rounded-l-none p-3"
-                      disabled={value >= max}
-                      aria-controls={inputId}
-                      aria-label="Increase value"
-                      onClick={() => inc()}
-                    >
-                      <SfIconAdd />
-                    </SfButton>
-                  </div>
-                  <p className="self-center mt-1 mb-4 text-xs text-neutral-500 xs:mb-0">
-                    <strong className="text-neutral-900">{max}</strong> in stock
-                  </p>
+              <div className="py-4 mb-4 border-gray-200 border-y">
+                <div className="bg-primary-100 text-primary-700 flex justify-center gap-1.5 py-1.5 typography-text-sm items-center mb-4 rounded-md">
+                  <SfIconShoppingCartCheckout />
+                  {qtyInCart} in cart
                 </div>
-                <SfButton
-                  size="lg"
-                  className="w-full xs:ml-4"
-                  slotPrefix={<SfIconShoppingCart size="sm" />}
-                >
-                  Add to cart
-                </SfButton>
+                <div className="items-start xs:flex">
+                  <div className="flex flex-col items-stretch xs:items-center xs:inline-flex">
+                    <div className="flex border border-neutral-300 rounded-md">
+                      <SfButton
+                        variant="tertiary"
+                        square
+                        className="rounded-r-none p-3"
+                        disabled={value <= min}
+                        aria-controls={inputId}
+                        aria-label="Decrease value"
+                        onClick={() => {
+                          dec();
+                          // adjustOrderLine &&
+                          //   adjustOrderLine(product.id, value - 1);
+                        }}
+                      >
+                        <SfIconRemove />
+                      </SfButton>
+                      <input
+                        id={inputId}
+                        type="number"
+                        role="spinbutton"
+                        className="grow appearance-none mx-2 w-8 text-center bg-transparent font-medium [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:display-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-outer-spin-button]:display-none [&::-webkit-outer-spin-button]:m-0 [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none disabled:placeholder-disabled-900 focus-visible:outline focus-visible:outline-offset focus-visible:rounded-sm"
+                        min={min}
+                        max={max}
+                        value={value}
+                        onChange={handleOnChange}
+                      />
+                      <SfButton
+                        variant="tertiary"
+                        square
+                        className="rounded-l-none p-3"
+                        disabled={value >= max}
+                        aria-controls={inputId}
+                        aria-label="Increase value"
+                        onClick={() => inc()}
+                      >
+                        <SfIconAdd />
+                      </SfButton>
+                    </div>
+                    <p className="self-center mt-1 mb-4 text-xs text-neutral-500 xs:mb-0">
+                      <strong className="text-neutral-900">{max}</strong> in
+                      stock
+                    </p>
+                  </div>
+                  <input type="hidden" value={value} name="quantity" />
+                  <SfButton
+                    type="submit"
+                    size="lg"
+                    className="w-full xs:ml-4"
+                    slotPrefix={<SfIconShoppingCart size="sm" />}
+                  >
+                    Add to cart
+                  </SfButton>
+                </div>
+                <div className="flex justify-center mt-4 gap-x-4">
+                  <SfButton
+                    size="sm"
+                    variant="tertiary"
+                    slotPrefix={<SfIconCompareArrows size="sm" />}
+                  >
+                    Compare
+                  </SfButton>
+                  <SfButton
+                    size="sm"
+                    variant="tertiary"
+                    slotPrefix={<SfIconFavorite size="sm" />}
+                  >
+                    Add to list
+                  </SfButton>
+                </div>
               </div>
-              <div className="flex justify-center mt-4 gap-x-4">
-                <SfButton
-                  size="sm"
-                  variant="tertiary"
-                  slotPrefix={<SfIconCompareArrows size="sm" />}
-                >
-                  Compare
-                </SfButton>
-                <SfButton
-                  size="sm"
-                  variant="tertiary"
-                  slotPrefix={<SfIconFavorite size="sm" />}
-                >
-                  Add to list
-                </SfButton>
-              </div>
-            </div>
+            </activeOrderFetcher.Form>
+
             <div className="flex first:mt-4">
               <SfIconPackage
                 size="sm"
