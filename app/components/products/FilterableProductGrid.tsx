@@ -9,6 +9,9 @@ import { NoResultsHint } from '~/components/products/NoResultsHint';
 import { useRef } from 'react';
 import { FacetFilterTracker } from '~/components/facet-filter/facet-filter-tracker';
 import { filteredSearchLoaderFromPagination } from '~/utils/filtered-search-loader';
+import { SfSelect } from '@storefront-ui/react';
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
+import { useNavigation } from '@remix-run/react';
 
 export function FilterableProductGrid({
   result,
@@ -37,6 +40,8 @@ export function FilterableProductGrid({
     facetValueIds,
   );
 
+  const navigation = useNavigation();
+
   return (
     <div className="mt-6 grid sm:grid-cols-5 gap-x-4">
       <FacetFilterControls
@@ -52,20 +57,7 @@ export function FilterableProductGrid({
             ))}
           </div>
 
-          <div className="flex flex-row justify-evenly items-center gap-4">
-            <span className=" text-gray-500 text-sm mt-2 lg:w-[300px]">
-              Showing products{' '}
-              {translatePaginationFrom(
-                appliedPaginationPage,
-                appliedPaginationLimit,
-              )}{' '}
-              to{' '}
-              {translatePaginationTo(
-                appliedPaginationPage,
-                appliedPaginationLimit,
-                result.items.length,
-              )}
-            </span>
+          <div className="flex flex-col justify-evenly items-center gap-4">
             <Pagination
               appliedPaginationLimit={appliedPaginationLimit}
               allowedPaginationLimits={allowedPaginationLimits}
@@ -73,6 +65,38 @@ export function FilterableProductGrid({
               appliedPaginationPage={appliedPaginationPage}
               className="flex w-full justify-evenly flex-wrap"
             />
+            <div className="flex flex-col md:flex-row w-full gap-3 justify-evenly items-center mb-3">
+              <span className=" text-gray-500 text-sm mt-2 lg:w-[300px]">
+                Showing products{' '}
+                {translatePaginationFrom(
+                  appliedPaginationPage,
+                  appliedPaginationLimit,
+                )}{' '}
+                to{' '}
+                {translatePaginationTo(
+                  appliedPaginationPage,
+                  appliedPaginationLimit,
+                  result.items.length,
+                )}
+              </span>
+              <span className="flex gap-4 items-center ">
+                {navigation.state !== 'idle' && (
+                  <ArrowPathIcon className="  animate-spin  h-6 w-6 text-gray-500" />
+                )}
+                <SfSelect
+                  name="limit"
+                  required
+                  defaultValue={appliedPaginationLimit}
+                  className="min-w-[150px]"
+                >
+                  {Array.from(allowedPaginationLimits).map((x) => (
+                    <option key={x} value={x}>
+                      {x} per page
+                    </option>
+                  ))}
+                </SfSelect>
+              </span>
+            </div>
           </div>
         </div>
       ) : (

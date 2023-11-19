@@ -26,6 +26,7 @@ import {
   useMemo,
   createRef,
   RefObject,
+  useEffect,
 } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import {
@@ -421,6 +422,19 @@ export default function Header({
     }
   };
 
+  const hideMenu = () => {
+    const to = setTimeout(() => {
+      close();
+    }, 500);
+    clearInterval(to);
+  };
+
+  const [closable, setClosable] = useState<boolean>();
+  useEffect(() => {
+    if (window.innerWidth >= 600) setClosable(true);
+    else setClosable(false);
+  }, []);
+
   return (
     <div className="w-full h-full">
       <header className="relative z-30" ref={refs.setReference}>
@@ -488,7 +502,7 @@ export default function Header({
               variant="primary"
               onClick={() => onCartIconClick()}
               className="relative shadow-none hover:bg-opacity-0 hover:shadow-none active:shadow-none active:bg-opacity-0"
-              style={{boxShadow: 'none'}}
+              style={{ boxShadow: 'none' }}
             >
               <SfIconShoppingCart />
               {cartQuantity > 0 ? (
@@ -515,7 +529,12 @@ export default function Header({
                   className="shadow-none hover:shadow-none text-white hover:bg-opacity-0 active:shadow-none active:bg-opacity-0"
                 />
                 <Form action="/api/logout" method="post">
-                  <SfButton style={{boxShadow:"none"}} className="shadow-none hover:shadow-none hover:bg-opacity-0 active:bg-opacity-0" type="submit" children={<SfIconLogout />} />
+                  <SfButton
+                    style={{ boxShadow: 'none' }}
+                    className="shadow-none hover:shadow-none hover:bg-opacity-0 active:bg-opacity-0"
+                    type="submit"
+                    children={<SfIconLogout />}
+                  />
                 </Form>
               </>
             )}
@@ -585,12 +604,14 @@ export default function Header({
                         {collection.children?.map((node) => (
                           <Fragment key={node.id}>
                             <SfListItem
+                              as="a"
                               size="sm"
                               className="typography-text-sm mb-2"
-                              onClick={(e) => {
-                                navigate(`/collections/${node.slug}`);
-                                handleOpenMenu([collection.id]);
-                              }}
+                              // onClick={(e) => {
+                              //   navigate(`/collections/${node.slug}`);
+                              //   handleOpenMenu([collection.id]);
+                              // }}
+                              href={`/collections/${node.slug}`}
                             >
                               {node.name}
                             </SfListItem>
@@ -621,7 +642,9 @@ export default function Header({
             <SfDrawer
               ref={drawerRef}
               open={isOpen}
-              onClose={close}
+              onClose={() => {
+                !closable && close();
+              }}
               placement="left"
               className="md:hidden right-[50px] max-w-[376px] bg-white overflow-y-auto"
             >

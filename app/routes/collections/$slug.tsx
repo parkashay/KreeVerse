@@ -22,7 +22,7 @@ export const meta: V2_MetaFunction = ({ data }) => {
   ];
 };
 
-const paginationLimitMinimumDefault = 18;
+const paginationLimitMinimumDefault = 15;
 const allowedPaginationLimits = new Set<number>([
   paginationLimitMinimumDefault,
   50,
