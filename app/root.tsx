@@ -151,7 +151,7 @@ export default function App() {
 
 type DefaultSparseErrorPageProps = {
   tagline: string;
-  headline: string;
+  headline: string;heade
   description: string;
 };
 

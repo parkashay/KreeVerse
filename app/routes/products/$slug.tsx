@@ -8,6 +8,7 @@ import {
   useLoaderData,
   useOutletContext,
   MetaFunction,
+  Link,
 } from '@remix-run/react';
 import { CheckIcon, HeartIcon, PhotoIcon } from '@heroicons/react/24/solid';
 import { Breadcrumbs } from '~/components/Breadcrumbs';
@@ -44,6 +45,7 @@ import {
   SfIconWarehouse,
   SfIconSafetyCheck,
   SfIconShoppingCartCheckout,
+  SfIconArrowForward,
 } from '@storefront-ui/react';
 import { useCounter } from 'react-use';
 import { useId, ChangeEvent } from 'react';
@@ -429,6 +431,15 @@ export default function ProductSlug() {
                     Add to cart
                   </SfButton>
                 </div>
+                {qtyInCart > 0 && (
+                  <Link
+                    to={'/checkout'}
+                    className="bg-white border-primary-500 border text-primary-700 flex justify-center mt-2 gap-1.5 py-1.5 typography-text-sm items-center mb-4 rounded-md"
+                  >
+                    Continue to Checkout
+                    <SfIconArrowForward/>
+                  </Link>
+                )}
                 <div className="flex justify-center mt-4 gap-x-4">
                   <SfButton
                     size="sm"

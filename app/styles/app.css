@@ -2217,11 +2217,6 @@ button:disabled {
   background-color: rgb(var(--colors-negative-900) / var(--tw-bg-opacity));
 }
 
-.bg-red-300{
-  --tw-bg-opacity: 1;
-  background-color: rgb(252 165 165 / var(--tw-bg-opacity));
-}
-
 .bg-opacity-75{
   --tw-bg-opacity: 0.75;
 }
@@ -3543,10 +3538,6 @@ button:disabled {
     --tw-bg-opacity: 0;
   }
 
-  .hover\:bg-none:hover{
-    background-image: none;
-  }
-
   .hover\:text-primary-500:hover{
     --tw-text-opacity: 1;
     color: rgb(var(--colors-primary-500) / var(--tw-text-opacity));
@@ -3649,11 +3640,6 @@ button:disabled {
   .hover\:ring-primary-700:hover{
     --tw-ring-opacity: 1;
     --tw-ring-color: rgb(var(--colors-primary-700) / var(--tw-ring-opacity));
-  }
-
-  .hover\:drop-shadow-none:hover{
-    --tw-drop-shadow: drop-shadow(0 0 #0000);
-    filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
   }
 
   .hover\:before\:bg-primary-800:hover::before{
@@ -4007,11 +3993,6 @@ button:disabled {
 .disabled\:bg-gray-200:disabled{
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
-}
-
-.disabled\:bg-gray-300:disabled{
-  --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
 .disabled\:bg-disabled-300:disabled{

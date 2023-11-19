@@ -506,9 +506,17 @@ export default function Header({
                 className="shadow-none hover:shadow-none text-white hover:bg-opacity-0 active:shadow-none active:bg-opacity-0"
               />
             ) : (
-              <Form action="/api/logout" method="post">
-                <SfButton type="submit" children={<SfIconLogout />} />
-              </Form>
+              <>
+                <Link
+                  to={'/account'}
+                  // onClick={() => navigate('/sign-in')}
+                  children={<SfIconPerson />}
+                  className="shadow-none hover:shadow-none text-white hover:bg-opacity-0 active:shadow-none active:bg-opacity-0"
+                />
+                <Form action="/api/logout" method="post">
+                  <SfButton className="shadow-none hover:shadow-none hover:bg-opacity-0 active:bg-opacity-0" type="submit" children={<SfIconLogout />} />
+                </Form>
+              </>
             )}
           </nav>
           <Form
