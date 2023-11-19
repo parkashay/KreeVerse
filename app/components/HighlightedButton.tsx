@@ -1,15 +1,19 @@
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
+import { SfButton } from '@storefront-ui/react';
 import clsx from 'clsx';
 
-type HighlightedButtonProps = React.PropsWithChildren<React.ButtonHTMLAttributes<HTMLButtonElement>> & {
+type HighlightedButtonProps = React.PropsWithChildren<
+  React.ButtonHTMLAttributes<HTMLButtonElement>
+> & {
   isSubmitting?: boolean;
-}
+};
 
-export function HighlightedButton(
-  { isSubmitting = false, ...props }: HighlightedButtonProps,
-) {
+export function HighlightedButton({
+  isSubmitting = false,
+  ...props
+}: HighlightedButtonProps) {
   return (
-    <button
+    <SfButton
       disabled={isSubmitting}
       {...props}
       className={clsx(
@@ -21,7 +25,9 @@ export function HighlightedButton(
       )}
     >
       {props.children}
-      {isSubmitting && <ArrowPathIcon className='w-4 h-4 animate-spin'></ArrowPathIcon>}
-    </button>
+      {isSubmitting && (
+        <ArrowPathIcon className="w-4 h-4 animate-spin"></ArrowPathIcon>
+      )}
+    </SfButton>
   );
 }

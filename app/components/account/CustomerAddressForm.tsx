@@ -5,6 +5,7 @@ import { ValidatedForm } from 'remix-validated-form';
 import { Address, AvailableCountriesQuery } from '~/generated/graphql';
 import { Input } from '~/components/Input';
 import { Select } from '~/components/Select';
+import { SfSelect } from '@storefront-ui/react';
 
 export const validator = withZod(
   z.object({
@@ -86,19 +87,22 @@ export default function CustomerAddressForm({
           name="province"
           autoComplete="address-level1"
         />
-        <Select
-          name="countryCode"
-          autoComplete="country"
-          placeholder="Select a country..."
-          required
-          label="Country"
-        >
-          {availableCountries?.map((country) => (
-            <option key={country.id} value={country.code}>
-              {country.name}
-            </option>
-          ))}
-        </Select>
+        <label>
+          <span className="pb-1 font-body text-gray-500 text-sm">Country*</span>
+          <SfSelect
+            name="countryCode"
+            autoComplete="country"
+            placeholder="Select a country..."
+            required
+            // label="Country"
+          >
+            {availableCountries?.map((country) => (
+              <option key={country.id} value={country.code}>
+                {country.name}
+              </option>
+            ))}
+          </SfSelect>
+        </label>
         <Input label="Phone" name="phone" autoComplete="phone" />
         <input type="submit" hidden />
       </div>

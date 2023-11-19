@@ -2,6 +2,7 @@ import { CheckIcon, PencilIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useActionData, useLoaderData, useNavigation } from '@remix-run/react';
 import { DataFunctionArgs, json, redirect } from '@remix-run/server-runtime';
 import { withZod } from '@remix-validated-form/with-zod';
+import { SfButton } from '@storefront-ui/react';
 import { useEffect, useRef, useState } from 'react';
 import { ValidatedForm, validationError } from 'remix-validated-form';
 import { z } from 'zod';
@@ -235,9 +236,13 @@ export default function AccountDetails() {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button type="reset" onClick={() => closeChangeEmailModal()}>
+            <SfButton
+              variant="secondary"
+              type="reset"
+              onClick={() => closeChangeEmailModal()}
+            >
               Cancel
-            </Button>
+            </SfButton>
             <HighlightedButton
               type="submit"
               isSubmitting={state === 'submitting'}
@@ -266,12 +271,9 @@ export default function AccountDetails() {
             )}
           </div>
           <div className="col-span-2">
-            <HighlightedButton
-              type="button"
-              onClick={() => openChangeEmailModal()}
-            >
+            <SfButton type="button" onClick={() => openChangeEmailModal()}>
               <PencilIcon className="w-4 h-4" /> Change Email
-            </HighlightedButton>
+            </SfButton>
           </div>
         </div>
         <div className="border-t border-gray-200 pt-10">
@@ -349,12 +351,9 @@ export default function AccountDetails() {
                     </div>
                   </>
                 ) : (
-                  <HighlightedButton
-                    type="button"
-                    onClick={() => setIsEditing(true)}
-                  >
+                  <SfButton type="button" onClick={() => setIsEditing(true)}>
                     <PencilIcon className="w-4 h-4" /> Edit
-                  </HighlightedButton>
+                  </SfButton>
                 )}
               </div>
             </div>

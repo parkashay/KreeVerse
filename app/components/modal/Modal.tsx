@@ -3,6 +3,7 @@ import { XMarkIcon } from '@heroicons/react/24/solid';
 import { ModalProvider, useModal } from './modal-context';
 import clsx from 'clsx';
 import React, { Fragment, PropsWithChildren } from 'react';
+import { SfButton } from '@storefront-ui/react';
 
 type ModalProps = {
   isOpen: boolean;
@@ -48,7 +49,7 @@ const Modal: React.FC<PropsWithChildren<ModalProps>> & {
             >
               <Dialog.Panel
                 className={clsx(
-                  'flex flex-col justify-start w-full h-full overflow-auto transform bg-white p-10 text-left align-middle shadow-xl transition-all',
+                  'rounded-lg flex flex-col justify-start w-full h-full overflow-auto transform bg-white p-10 text-left align-middle shadow-xl transition-all',
                   {
                     'max-w-md': size === 'small',
                     'max-w-xl': size === 'medium',
@@ -73,10 +74,10 @@ const Title: React.FC<PropsWithChildren> = ({ children }) => {
     <Dialog.Title className="flex items-center justify-between">
       <div className="text-large-semi">{children}</div>
       <div>
-        <button onClick={close} type="button">
+        <SfButton variant="secondary" onClick={close} type="button">
           {/* <X size={20} /> */}
           <XMarkIcon className="w-6 h-6"></XMarkIcon>
-        </button>
+        </SfButton>
       </div>
     </Dialog.Title>
   );

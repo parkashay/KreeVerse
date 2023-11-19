@@ -6,12 +6,12 @@ export default function AddAddressCard() {
     <>
       <Link
         preventScrollReset
-        className="border border-gray-200 p-5 min-h-[220px] h-full w-full flex flex-col justify-between"
+        className="border border-gray-200 p-5 min-h-[220px] h-full w-full flex flex-col justify-between rounded-lg"
         to="/account/addresses/new"
       >
         <span className="text-base-semi">New address</span>
-        <PlusIcon className='w-6 h-6'></PlusIcon>
+        <PlusIcon className="w-6 h-6"></PlusIcon>
       </Link>
     </>
   );
-};
+}

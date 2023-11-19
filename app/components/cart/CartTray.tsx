@@ -2,10 +2,11 @@ import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { CartContents } from './CartContents';
-import { Link, useLocation } from '@remix-run/react';
+import { Link, useLocation, useNavigate } from '@remix-run/react';
 import { Price } from '~/components/products/Price';
 import { CartLoaderData } from '~/routes/api/active-order';
 import { CurrencyCode } from '~/generated/graphql';
+import { SfButton } from '@storefront-ui/react';
 
 export function CartTray({
   open,
@@ -23,6 +24,7 @@ export function CartTray({
   const currencyCode = activeOrder?.currencyCode || CurrencyCode.Usd;
   const location = useLocation();
   const editable = !location.pathname.startsWith('/checkout');
+  const navigate = useNavigate();
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -106,13 +108,15 @@ export function CartTray({
                         Shipping will be calculated at checkout.
                       </p>
                       <div className="mt-6">
-                        <Link
-                          to="/checkout"
-                          onClick={() => onClose(false)}
-                          className="flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-primary-600 hover:bg-primary-700"
+                        <SfButton
+                          onClick={() => {
+                            onClose(false);
+                            navigate('/checkout');
+                          }}
+                          className="flex justify-center w-full items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-primary-600 hover:bg-primary-700"
                         >
                           Checkout
-                        </Link>
+                        </SfButton>
                       </div>
                     </div>
                   )}

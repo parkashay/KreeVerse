@@ -21,6 +21,7 @@ import { ShippingMethodSelector } from '~/components/checkout/ShippingMethodSele
 import { ShippingAddressSelector } from '~/components/checkout/ShippingAddressSelector';
 import { getActiveOrder } from '~/providers/orders/order';
 import { SfInput } from '@storefront-ui/react';
+import SfShippingMethodSelector from '~/components/checkout/SfShippingMethodSelector';
 
 export async function loader({ request }: DataFunctionArgs) {
   const session = await getSessionStorage().getSession(
@@ -260,12 +261,20 @@ export default function CheckoutShipping() {
       </Form>
 
       <div className="mt-10 border-t border-gray-200 pt-10">
-        <ShippingMethodSelector
+        {/* <ShippingMethodSelector
           eligibleShippingMethods={eligibleShippingMethods}
           currencyCode={activeOrder?.currencyCode}
           shippingMethodId={
             activeOrder?.shippingLines[0]?.shippingMethod.id ?? ''
           }
+          onChange={submitSelectedShippingMethod}
+        /> */}
+        <SfShippingMethodSelector
+          eligibleShippingMethods={eligibleShippingMethods}
+          shippingMethodId={
+            activeOrder?.shippingLines[0]?.shippingMethod.id ?? ''
+          }
+          currencyCode={activeOrder?.currencyCode}
           onChange={submitSelectedShippingMethod}
         />
       </div>

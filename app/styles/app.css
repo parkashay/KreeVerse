@@ -1655,6 +1655,10 @@ button:disabled {
   align-items: flex-start;
 }
 
+.\!items-start{
+  align-items: flex-start !important;
+}
+
 .items-end{
   align-items: flex-end;
 }
@@ -3406,6 +3410,14 @@ button:disabled {
 
 .first-of-type\:mt-2:first-of-type{
   margin-top: 0.5rem;
+}
+
+.first-of-type\:mr-4:first-of-type{
+  margin-right: 1rem;
+}
+
+.first-of-type\:mb-4:first-of-type{
+  margin-bottom: 1rem;
 }
 
 .checked\:border-primary-700:checked{

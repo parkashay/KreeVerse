@@ -17,6 +17,7 @@ import CustomerAddressForm, {
 } from '~/components/account/CustomerAddressForm';
 import { createCustomerAddress } from '~/providers/account/account';
 import { getAvailableCountries } from '~/providers/checkout/checkout';
+import { SfButton } from '@storefront-ui/react';
 
 export async function loader({ request, params }: DataFunctionArgs) {
   const { availableCountries } = await getAvailableCountries({ request });
@@ -89,9 +90,9 @@ export default function NewAddress() {
           ></CustomerAddressForm>
         </Modal.Body>
         <Modal.Footer>
-          <Button type="button" onClick={close}>
+          <SfButton type="button" variant="secondary" onClick={close}>
             Cancel
-          </Button>
+          </SfButton>
           <HighlightedButton
             isSubmitting={navigation.state === 'submitting'}
             type="submit"
