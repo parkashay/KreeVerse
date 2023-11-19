@@ -22,6 +22,7 @@ import { ShippingAddressSelector } from '~/components/checkout/ShippingAddressSe
 import { getActiveOrder } from '~/providers/orders/order';
 import { SfInput } from '@storefront-ui/react';
 import SfShippingMethodSelector from '~/components/checkout/SfShippingMethodSelector';
+import SfShippingAddressSelector from '~/components/checkout/SfShippingAddressSelector';
 
 export async function loader({ request }: DataFunctionArgs) {
   const session = await getSessionStorage().getSession(
@@ -245,7 +246,12 @@ export default function CheckoutShipping() {
         </div>
         {isSignedIn && activeCustomer.addresses?.length ? (
           <div>
-            <ShippingAddressSelector
+            {/* <ShippingAddressSelector
+              addresses={activeCustomer.addresses}
+              selectedAddressIndex={selectedAddressIndex}
+              onChange={submitSelectedAddress}
+            /> */}
+            <SfShippingAddressSelector
               addresses={activeCustomer.addresses}
               selectedAddressIndex={selectedAddressIndex}
               onChange={submitSelectedAddress}
