@@ -6,6 +6,13 @@ import {
 } from '@heroicons/react/24/solid';
 import { Form, Outlet, useLoaderData, useMatches } from '@remix-run/react';
 import { DataFunctionArgs, json, redirect } from '@remix-run/server-runtime';
+import {
+  SfButton,
+  SfIconLocationOn,
+  SfIconLock,
+  SfIconPerson,
+  SfIconShoppingCart,
+} from '@storefront-ui/react';
 import { TabProps } from '~/components/tabs/Tab';
 import { TabsContainer } from '~/components/tabs/TabsContainer';
 import { getActiveCustomerDetails } from '~/providers/customer/customer';
@@ -24,22 +31,22 @@ export default function AccountDashboard() {
 
   const tabs: TabProps[] = [
     {
-      Icon: UserCircleIcon,
+      Icon: SfIconPerson,
       text: 'Account Details',
       to: './',
     },
     {
-      Icon: ShoppingBagIcon,
+      Icon: SfIconShoppingCart,
       text: 'Purchase History',
       to: './history',
     },
     {
-      Icon: MapPinIcon,
+      Icon: SfIconLocationOn,
       text: 'Addresses',
       to: './addresses',
     },
     {
-      Icon: HashtagIcon,
+      Icon: SfIconLock,
       text: 'Password',
       to: './password',
     },
@@ -54,12 +61,12 @@ export default function AccountDashboard() {
         Welcome back, {firstName} {lastName}
       </p>
       <Form method="post" action="/api/logout">
-        <button
+        <SfButton
           type="submit"
-          className="underline text-primary-600 hover:text-primary-800"
+          className="  bg-red-500 hover:bg-red-600 text-white"
         >
           Sign out
-        </button>
+        </SfButton>
       </Form>
       <TabsContainer tabs={tabs}>
         <Outlet></Outlet>

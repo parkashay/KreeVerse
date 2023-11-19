@@ -2217,6 +2217,31 @@ button:disabled {
   background-color: rgb(var(--colors-negative-900) / var(--tw-bg-opacity));
 }
 
+.bg-red-400{
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 113 113 / var(--tw-bg-opacity));
+}
+
+.bg-primary-400{
+  --tw-bg-opacity: 1;
+  background-color: rgb(var(--colors-primary-400) / var(--tw-bg-opacity));
+}
+
+.bg-green-400{
+  --tw-bg-opacity: 1;
+  background-color: rgb(74 222 128 / var(--tw-bg-opacity));
+}
+
+.bg-red-300{
+  --tw-bg-opacity: 1;
+  background-color: rgb(252 165 165 / var(--tw-bg-opacity));
+}
+
+.bg-red-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-75{
   --tw-bg-opacity: 0.75;
 }
@@ -2573,6 +2598,14 @@ button:disabled {
 
 .pr-3\.5{
   padding-right: 0.875rem;
+}
+
+.pb-6{
+  padding-bottom: 1.5rem;
+}
+
+.pb-3{
+  padding-bottom: 0.75rem;
 }
 
 .text-left{
@@ -3532,6 +3565,21 @@ button:disabled {
   .hover\:bg-neutral-100:hover{
     --tw-bg-opacity: 1;
     background-color: rgb(var(--colors-neutral-100) / var(--tw-bg-opacity));
+  }
+
+  .hover\:bg-red-400:hover{
+    --tw-bg-opacity: 1;
+    background-color: rgb(248 113 113 / var(--tw-bg-opacity));
+  }
+
+  .hover\:bg-red-500:hover{
+    --tw-bg-opacity: 1;
+    background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+  }
+
+  .hover\:bg-red-600:hover{
+    --tw-bg-opacity: 1;
+    background-color: rgb(220 38 38 / var(--tw-bg-opacity));
   }
 
   .hover\:bg-opacity-0:hover{

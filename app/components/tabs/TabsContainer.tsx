@@ -10,7 +10,7 @@ export function TabsContainer({
 }) {
   return (
     <>
-      <div className="border-b border-gray-200 mt-4">
+      <div className="border-b border-gray-200 mt-4 pb-3">
         <ul className="gap-x-4 grid grid-cols-2 sm:grid-0 sm:flex sm:flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
           {tabs.map((props) => (
             <Tab

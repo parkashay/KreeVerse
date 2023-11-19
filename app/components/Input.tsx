@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 import { useField } from 'remix-validated-form';
 import FormElement from './FormElement';
+import { SfInput } from '@storefront-ui/react';
 
 type InputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
