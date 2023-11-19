@@ -488,6 +488,7 @@ export default function Header({
               variant="primary"
               onClick={() => onCartIconClick()}
               className="relative shadow-none hover:bg-opacity-0 hover:shadow-none active:shadow-none active:bg-opacity-0"
+              style={{boxShadow: 'none'}}
             >
               <SfIconShoppingCart />
               {cartQuantity > 0 ? (
@@ -503,7 +504,7 @@ export default function Header({
                 to={'/sign-in'}
                 // onClick={() => navigate('/sign-in')}
                 children={<SfIconPerson />}
-                className="shadow-none hover:shadow-none text-white hover:bg-opacity-0 active:shadow-none active:bg-opacity-0"
+                className="shadow-none !hover:shadow-none text-white hover:bg-opacity-0 mx-2 active:shadow-none active:bg-opacity-0"
               />
             ) : (
               <>
@@ -514,7 +515,7 @@ export default function Header({
                   className="shadow-none hover:shadow-none text-white hover:bg-opacity-0 active:shadow-none active:bg-opacity-0"
                 />
                 <Form action="/api/logout" method="post">
-                  <SfButton className="shadow-none hover:shadow-none hover:bg-opacity-0 active:bg-opacity-0" type="submit" children={<SfIconLogout />} />
+                  <SfButton style={{boxShadow:"none"}} className="shadow-none hover:shadow-none hover:bg-opacity-0 active:bg-opacity-0" type="submit" children={<SfIconLogout />} />
                 </Form>
               </>
             )}
