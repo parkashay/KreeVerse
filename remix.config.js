@@ -27,10 +27,20 @@ const devConfig = {
   future: {
     v2_dev: false,
   },
+
   routes(defineRoutes) {
     // uses the v1 convention, works in v1.15+ and v2
     return createRoutesFromFolders(defineRoutes);
   },
+};
+
+const prodConfig = {
+  appDirectory: 'app',
+  assetsBuildDirectory: 'public/build',
+  publicPath: '/build/',
+  serverBuildDirectory: 'build',
+  devServerPort: 8002,
+  ignoredRouteFiles: ['.*'],
 };
 
 /**
@@ -51,6 +61,7 @@ function selectConfig() {
   if (!process.env.CF_PAGES && !process.env.NETLIFY) return buildConfig;
   if (process.env.CF_PAGES) return cloudflarePagesConfig;
   if (process.env.NETLIFY) return netlifyConfig;
+  if (process.env.NODE_ENV === 'production') return prodConfig;
   throw `Cannot select config`;
 }
 
