@@ -1,9 +1,24 @@
-import { useLoaderData } from '@remix-run/react';
+import { MetaFunction, useLoaderData } from '@remix-run/react';
 import { getCollections } from '~/providers/collections/collections';
 import { CollectionCard } from '~/components/collections/CollectionCard';
 import HeroSection from '~/components/hero-section/HeroSection';
 import { LoaderFunctionArgs } from '@remix-run/server-runtime';
 
+export const meta: MetaFunction = ({ data }) => {
+  return [
+    {
+      title: 'Kreeverse',
+    },
+    {
+      name: 'description',
+      content: 'A store for your needs.',
+    },
+    {
+      property: 'og:image',
+      content: data?.collections[0]?.featuredAsset?.preview || null,
+    },
+  ];
+};
 export async function loader({ request }: LoaderFunctionArgs) {
   const collections = await getCollections(request, { take: 20 });
   return {
