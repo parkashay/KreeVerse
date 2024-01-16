@@ -12,7 +12,12 @@ module.exports = {
     './node_modules/@storefront-ui/react/**/*.{js,mjs}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        gradient:
+          'linear-gradient(90deg, rgba(226,220,20,1) 0%, rgba(96,181,56,1) 27%, rgba(44,189,119,1) 75%, rgba(0,212,255,1) 100%)',
+      },
+    },
   },
   plugins: [],
 };
