@@ -1,6 +1,11 @@
 import { CheckIcon, PencilIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useActionData, useLoaderData, useNavigation } from '@remix-run/react';
-import { DataFunctionArgs, json, redirect } from '@remix-run/server-runtime';
+import {
+  ActionFunctionArgs,
+  LoaderFunctionArgs,
+  json,
+  redirect,
+} from '@remix-run/server-runtime';
 import { withZod } from '@remix-validated-form/with-zod';
 import { SfButton } from '@storefront-ui/react';
 import { useEffect, useRef, useState } from 'react';
@@ -43,7 +48,7 @@ const changeEmailValidator = withZod(
   }),
 );
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const { activeCustomer } = await getActiveCustomerDetails({ request });
   if (!activeCustomer) {
     return redirect('/sign-in');
@@ -80,7 +85,7 @@ type CustomerUpdatedResponse = {
   customerUpdated: true;
 };
 
-export async function action({ request }: DataFunctionArgs) {
+export async function action({ request }: ActionFunctionArgs) {
   const body = await request.formData();
   const intent = body.get('intent') as FormIntent | null;
 

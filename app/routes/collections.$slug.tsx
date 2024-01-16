@@ -1,6 +1,5 @@
-import { DataFunctionArgs } from '@remix-run/server-runtime';
-import { useLoaderData, useSubmit, V2_MetaFunction } from '@remix-run/react';
-import { sdk } from '../../graphqlWrapper';
+import { useLoaderData, useSubmit } from '@remix-run/react';
+import { sdk } from '~/graphqlWrapper';
 import { CollectionCard } from '~/components/collections/CollectionCard';
 import { Breadcrumbs } from '~/components/Breadcrumbs';
 import { APP_META_TITLE } from '~/constants';
@@ -11,16 +10,7 @@ import { FiltersButton } from '~/components/FiltersButton';
 import { ValidatedForm } from 'remix-validated-form';
 import { withZod } from '@remix-validated-form/with-zod';
 import { FilterableProductGrid } from '~/components/products/FilterableProductGrid';
-
-export const meta: V2_MetaFunction = ({ data }) => {
-  return [
-    {
-      title: data?.collection
-        ? `${data.collection?.name} - ${APP_META_TITLE}`
-        : APP_META_TITLE,
-    },
-  ];
-};
+import { LoaderFunctionArgs } from '@remix-run/server-runtime';
 
 const paginationLimitMinimumDefault = 15;
 const allowedPaginationLimits = new Set<number>([
@@ -33,7 +23,7 @@ const { validator, filteredSearchLoader } = filteredSearchLoaderFromPagination(
   paginationLimitMinimumDefault,
 );
 
-export async function loader({ params, request, context }: DataFunctionArgs) {
+export async function loader({ params, request, context }: LoaderFunctionArgs) {
   const {
     result,
     resultWithoutFacetValueFilters,

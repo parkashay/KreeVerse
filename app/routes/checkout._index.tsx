@@ -7,7 +7,7 @@ import {
   useOutletContext,
 } from '@remix-run/react';
 import { OutletContext } from '~/types';
-import { DataFunctionArgs, json, redirect } from '@remix-run/server-runtime';
+import { LoaderFunctionArgs, json, redirect } from '@remix-run/server-runtime';
 import {
   getAvailableCountries,
   getEligibleShippingMethods,
@@ -17,14 +17,12 @@ import { getSessionStorage } from '~/sessions';
 import { classNames } from '~/utils/class-names';
 import { getActiveCustomerAddresses } from '~/providers/customer/customer';
 import { AddressForm } from '~/components/account/AddressForm';
-import { ShippingMethodSelector } from '~/components/checkout/ShippingMethodSelector';
-import { ShippingAddressSelector } from '~/components/checkout/ShippingAddressSelector';
 import { getActiveOrder } from '~/providers/orders/order';
 import { SfInput } from '@storefront-ui/react';
 import SfShippingMethodSelector from '~/components/checkout/SfShippingMethodSelector';
 import SfShippingAddressSelector from '~/components/checkout/SfShippingAddressSelector';
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getSessionStorage().getSession(
     request?.headers.get('Cookie'),
   );

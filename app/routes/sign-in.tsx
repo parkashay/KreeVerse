@@ -1,14 +1,13 @@
 import { Link, useFetcher, useSearchParams } from '@remix-run/react';
-import { DataFunctionArgs, json, redirect } from '@remix-run/server-runtime';
+import { ActionFunctionArgs, json, redirect } from '@remix-run/server-runtime';
 import { login } from '~/providers/account/account';
 import { ErrorResult } from '~/generated/graphql';
 import { XCircleIcon } from '@heroicons/react/24/solid';
-import { Button } from '~/components/Button';
 import { ArrowPathIcon } from '@heroicons/react/24/solid';
 import { SfButton, SfInput, SfLink } from '@storefront-ui/react';
 import { SfCheckbox } from '@storefront-ui/react';
 
-export async function action({ params, request }: DataFunctionArgs) {
+export async function action({ params, request }: ActionFunctionArgs) {
   const body = await request.formData();
   const email = body.get('email');
   const password = body.get('password');
@@ -129,7 +128,7 @@ export default function SignInPage() {
                   <div className="text-sm">
                     <SfLink
                       href="#"
-                      variant='primary'
+                      variant="primary"
                       className="font-medium text-primary-600 hover:text-primary-500"
                     >
                       Forgot your password?

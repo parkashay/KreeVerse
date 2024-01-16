@@ -1,4 +1,3 @@
-import { DataFunctionArgs } from '@remix-run/server-runtime';
 import { getOrderByCode } from '~/providers/orders/order';
 import { useLoaderData } from '@remix-run/react';
 import { CartContents } from '~/components/cart/CartContents';
@@ -8,8 +7,9 @@ import { InformationCircleIcon } from '@heroicons/react/24/solid';
 import { useRevalidator } from '@remix-run/react';
 import { useEffect, useState } from 'react';
 import { OrderDetailFragment } from '~/generated/graphql';
+import { LoaderFunctionArgs } from '@remix-run/server-runtime';
 
-export async function loader({ params, request }: DataFunctionArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
   try {
     const order = await getOrderByCode(params.orderCode!, { request });
     return {

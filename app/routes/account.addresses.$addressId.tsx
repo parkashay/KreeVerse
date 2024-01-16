@@ -5,7 +5,12 @@ import {
   useSubmit,
   useNavigation,
 } from '@remix-run/react';
-import { DataFunctionArgs, json, redirect } from '@remix-run/server-runtime';
+import {
+  ActionFunctionArgs,
+  LoaderFunctionArgs,
+  json,
+  redirect,
+} from '@remix-run/server-runtime';
 import { useRef, useEffect } from 'react';
 import { validationError } from 'remix-validated-form';
 import { Button } from '~/components/Button';
@@ -20,7 +25,7 @@ import { updateCustomerAddress } from '~/providers/account/account';
 import { getAvailableCountries } from '~/providers/checkout/checkout';
 import { getActiveCustomerAddresses } from '~/providers/customer/customer';
 
-export async function loader({ request, params }: DataFunctionArgs) {
+export async function loader({ request, params }: LoaderFunctionArgs) {
   const { activeCustomer } = await getActiveCustomerAddresses({ request });
   const address = activeCustomer?.addresses?.find(
     (address) => address.id === params.addressId,
@@ -35,7 +40,7 @@ export async function loader({ request, params }: DataFunctionArgs) {
   return json({ address, availableCountries });
 }
 
-export async function action({ request, params }: DataFunctionArgs) {
+export async function action({ request, params }: ActionFunctionArgs) {
   const body = await request.formData();
 
   const result = await validator.validate(body);

@@ -1,5 +1,5 @@
 import { useLoaderData, useNavigation, useSubmit } from '@remix-run/react';
-import { DataFunctionArgs, json, redirect } from '@remix-run/server-runtime';
+import { LoaderFunctionArgs, json, redirect } from '@remix-run/server-runtime';
 import OrderHistoryItem from '~/components/account/OrderHistoryItem';
 import { getActiveCustomerOrderList } from '~/providers/customer/customer';
 import { OrderListOptions, SortOrder } from '~/generated/graphql';
@@ -22,7 +22,7 @@ const orderPaginationSchema = paginationValidationSchema(
   allowedPaginationLimits,
 );
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   // Careful params are user controllable data - never blindly trust it!
   // Use the .default fallbacks in case that params are undefined i.e. `null`

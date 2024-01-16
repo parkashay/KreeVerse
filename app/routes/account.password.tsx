@@ -1,6 +1,6 @@
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { useActionData, useNavigation } from '@remix-run/react';
-import { DataFunctionArgs, json } from '@remix-run/server-runtime';
+import { ActionFunctionArgs, json } from '@remix-run/server-runtime';
 import { withZod } from '@remix-validated-form/with-zod';
 import { useEffect, useRef, useState } from 'react';
 import { ValidatedForm, validationError } from 'remix-validated-form';
@@ -32,7 +32,7 @@ export const validator = withZod(
     ),
 );
 
-export async function action({ request }: DataFunctionArgs) {
+export async function action({ request }: ActionFunctionArgs) {
   const body = await request.formData();
 
   const result = await validator.validate(body);
@@ -133,7 +133,10 @@ export default function AccountPassword() {
         )}
         {editing ? (
           <div className="flex gap-3">
-            <HighlightedButton type="submit" isSubmitting={state === 'submitting'}>
+            <HighlightedButton
+              type="submit"
+              isSubmitting={state === 'submitting'}
+            >
               Save Password
             </HighlightedButton>
             <Button type="reset" onClick={() => setEditing(false)}>
