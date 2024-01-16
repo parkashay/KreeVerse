@@ -14,22 +14,21 @@ import {
 } from '@remix-run/react';
 import styles from './styles/app.css';
 import Header from './components/header/Header';
-import { DataFunctionArgs, json } from '@remix-run/server-runtime';
+import { LoaderFunctionArgs, json } from '@remix-run/server-runtime';
 import { getCollections } from '~/providers/collections/collections';
 import { activeChannel } from '~/providers/channel/channel';
 import { APP_META_DESCRIPTION, APP_META_TITLE } from '~/constants';
 import { useEffect, useState } from 'react';
 import { CartTray } from '~/components/cart/CartTray';
 import { getActiveCustomer } from '~/providers/customer/customer';
-import Footer from '~/components/footer/Footer';
 import { useActiveOrder } from '~/utils/use-active-order';
 import { setApiUrl } from '~/graphqlWrapper';
 import { ActiveCustomerQuery } from './generated/graphql';
+import FooterBasic from './components/footer/Footer';
 
 export const meta: MetaFunction = () => {
   return [{ title: APP_META_TITLE }, { description: APP_META_DESCRIPTION }];
 };
-
 export function links() {
   return [{ rel: 'stylesheet', href: styles }];
 }
@@ -64,7 +63,7 @@ export type RootLoaderData = {
   collections: Awaited<ReturnType<typeof getCollections>>;
 };
 
-export async function loader({ request, params, context }: DataFunctionArgs) {
+export async function loader({ request, params, context }: LoaderFunctionArgs) {
   if (typeof context.VENDURE_API_URL === 'string') {
     // Set the API URL for Cloudflare Pages
     setApiUrl(context.VENDURE_API_URL);
@@ -141,7 +140,7 @@ export default function App() {
         />
         <ScrollRestoration />
         <Scripts />
-        <Footer collections={collections}></Footer>
+        <FooterBasic></FooterBasic>
 
         {devMode && <LiveReload />}
       </body>
@@ -208,7 +207,7 @@ function DefaultSparseErrorPage({
  */
 export function ErrorBoundary() {
   let tagline = 'Oopsy daisy';
-  let headline = 'Unexpected error';
+  let headline = 'We were not able to connect to the server.';
   let description = "We couldn't handle your request. Please try again later.";
 
   const error = useRouteError();

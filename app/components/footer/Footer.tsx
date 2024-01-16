@@ -133,26 +133,7 @@ const socialMedia = [
     icon: () => <SfIconYoutube />,
   },
 ];
-const contactOptions = [
-  {
-    label: 'Help center',
-    link: '#',
-    details: ['Find answers online anytime'],
-    icon: () => <SfIconHelp size="lg" />,
-  },
-  {
-    label: 'Live chat',
-    link: '#',
-    details: ['Mon–Fri, 5am–10pm PT', 'Sat–Sun, 6am–9pm PT'],
-    icon: () => <SfIconContactSupport size="lg" />,
-  },
-  {
-    label: '1 234 567 8901',
-    link: '#',
-    details: ['Mon–Fri, 5am–10pm PT', 'Sat–Sun, 6am–9pm PT'],
-    icon: () => <SfIconCall size="lg" />,
-  },
-];
+
 const bottomLinks = [
   {
     label: 'Terms',
@@ -190,30 +171,6 @@ export default function FooterBasic() {
         ))}
       </div>
       <hr />
-      <div className="py-10 md:flex md:mx-auto max-w-[1536px]">
-        {contactOptions.map(({ label, icon: Icon, link, details }) => (
-          <div className="mx-auto my-4 text-center" key={label}>
-            <Icon />
-            <p className="py-1 my-2 font-medium typography-text-lg font-body">
-              <SfLink
-                variant="secondary"
-                className="no-underline text-neutral-600 hover:underline hover:!text-neutral-900 active:underline active:!text-neutral-900"
-                href={link}
-              >
-                {label}
-              </SfLink>
-            </p>
-            {details?.map((option) => (
-              <p
-                className="leading-5 typography-text-sm text-neutral-600 font-body"
-                key={option}
-              >
-                {option}
-              </p>
-            ))}
-          </div>
-        ))}
-      </div>
       <div className="bg-neutral-900 justify-end px-14 py-10 md:flex md:py-6 max-w-[1536p] w-full mx-auto">
         <div className="flex justify-center py-2 gap-x-4 md:self-start">
           {socialMedia.map(({ icon: Icon, label, link }) => (
