@@ -1,4 +1,4 @@
-import { DataFunctionArgs, json } from '@remix-run/server-runtime';
+import { LoaderFunctionArgs, json } from '@remix-run/server-runtime';
 import { useState, useRef } from 'react';
 import { Price } from '~/components/products/Price';
 import { getProductBySlug } from '~/providers/products/products';
@@ -10,16 +10,13 @@ import {
   MetaFunction,
   Link,
 } from '@remix-run/react';
-import { CheckIcon, HeartIcon, PhotoIcon } from '@heroicons/react/24/solid';
+import { PhotoIcon } from '@heroicons/react/24/solid';
 import { Breadcrumbs } from '~/components/Breadcrumbs';
 import { APP_META_TITLE } from '~/constants';
-import { CartLoaderData } from '~/routes/api/active-order';
+import { CartLoaderData } from '~/routes/api.active-order';
 import { getSessionStorage } from '~/sessions';
 import { ErrorCode, ErrorResult } from '~/generated/graphql';
-import Alert from '~/components/Alert';
-import { StockLevelLabel } from '~/components/products/StockLevelLabel';
 import TopReviews from '~/components/products/TopReviews';
-import { ScrollableContainer } from '~/components/products/ScrollableContainer';
 // import {
 //   SfButton,
 //   SfIconPackage,
@@ -28,9 +25,6 @@ import { ScrollableContainer } from '~/components/products/ScrollableContainer';
 // } from '@storefront-ui/react';
 import {
   SfSelect,
-  SfIconCheckCircle,
-  SfIconCreditCard,
-  SfIconAddShoppingCart,
   SfRating,
   SfButton,
   SfLink,
@@ -50,15 +44,8 @@ import {
 import { useCounter } from 'react-use';
 import { useId, ChangeEvent } from 'react';
 import { clamp } from '@storefront-ui/shared';
-import { adjustOrderLine } from '~/providers/orders/order';
 import { useIntersection } from 'react-use';
-import {
-  SfScrollable,
-  SfIconChevronLeft,
-  SfIconChevronRight,
-  type SfScrollableOnDragEndData,
-} from '@storefront-ui/react';
-import classNames from 'classnames';
+import { type SfScrollableOnDragEndData } from '@storefront-ui/react';
 import GalleryVertical from '~/components/products/Gallery';
 export const meta: MetaFunction = ({ data }) => {
   return [
@@ -70,7 +57,7 @@ export const meta: MetaFunction = ({ data }) => {
   ];
 };
 
-export async function loader({ params, request }: DataFunctionArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
   const { product } = await getProductBySlug(params.slug!, { request });
   if (!product) {
     throw new Response('Not Found', {
@@ -437,7 +424,7 @@ export default function ProductSlug() {
                     className="bg-white border-primary-500 border text-primary-700 flex justify-center mt-2 gap-1.5 py-1.5 typography-text-sm items-center mb-4 rounded-md"
                   >
                     Continue to Checkout
-                    <SfIconArrowForward/>
+                    <SfIconArrowForward />
                   </Link>
                 )}
                 <div className="flex justify-center mt-4 gap-x-4">

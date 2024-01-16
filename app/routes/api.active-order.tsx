@@ -7,7 +7,11 @@ import {
   setOrderShippingAddress,
   setOrderShippingMethod,
 } from '~/providers/orders/order';
-import { DataFunctionArgs, json } from '@remix-run/server-runtime';
+import {
+  ActionFunctionArgs,
+  LoaderFunctionArgs,
+  json,
+} from '@remix-run/server-runtime';
 import {
   CreateAddressInput,
   CreateCustomerInput,
@@ -20,13 +24,13 @@ import { shippingFormDataIsValid } from '~/utils/validation';
 
 export type CartLoaderData = Awaited<ReturnType<typeof loader>>;
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   return {
     activeOrder: await getActiveOrder({ request }),
   };
 }
 
-export async function action({ request, params }: DataFunctionArgs) {
+export async function action({ request, params }: ActionFunctionArgs) {
   const body = await request.formData();
   const formAction = body.get('action');
   let activeOrder: OrderDetailFragment | undefined = undefined;

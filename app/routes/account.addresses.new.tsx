@@ -5,7 +5,11 @@ import {
   useNavigation,
   useSubmit,
 } from '@remix-run/react';
-import { DataFunctionArgs, json } from '@remix-run/server-runtime';
+import {
+  ActionFunctionArgs,
+  LoaderFunctionArgs,
+  json,
+} from '@remix-run/server-runtime';
 import { useRef, useEffect } from 'react';
 import { validationError } from 'remix-validated-form';
 import { Button } from '~/components/Button';
@@ -19,13 +23,13 @@ import { createCustomerAddress } from '~/providers/account/account';
 import { getAvailableCountries } from '~/providers/checkout/checkout';
 import { SfButton } from '@storefront-ui/react';
 
-export async function loader({ request, params }: DataFunctionArgs) {
+export async function loader({ request, params }: LoaderFunctionArgs) {
   const { availableCountries } = await getAvailableCountries({ request });
 
   return json({ availableCountries });
 }
 
-export async function action({ request, params }: DataFunctionArgs) {
+export async function action({ request, params }: ActionFunctionArgs) {
   const body = await request.formData();
 
   const result = await validator.validate(body);

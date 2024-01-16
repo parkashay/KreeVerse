@@ -1,4 +1,9 @@
-import { DataFunctionArgs, json, redirect } from '@remix-run/server-runtime';
+import {
+  ActionFunctionArgs,
+  LoaderFunctionArgs,
+  json,
+  redirect,
+} from '@remix-run/server-runtime';
 import {
   addPaymentToOrder,
   createStripePaymentIntent,
@@ -16,7 +21,7 @@ import { BraintreeDropIn } from '~/components/checkout/braintree/BraintreePaymen
 import { getActiveOrder } from '~/providers/orders/order';
 import { getSessionStorage } from '~/sessions';
 
-export async function loader({ params, request }: DataFunctionArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
   const session = await getSessionStorage().getSession(
     request?.headers.get('Cookie'),
   );
@@ -78,7 +83,7 @@ export async function loader({ params, request }: DataFunctionArgs) {
   });
 }
 
-export async function action({ params, request }: DataFunctionArgs) {
+export async function action({ params, request }: ActionFunctionArgs) {
   const body = await request.formData();
   const paymentMethodCode = body.get('paymentMethodCode');
   const paymentNonce = body.get('paymentNonce');

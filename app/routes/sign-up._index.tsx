@@ -1,5 +1,5 @@
 import { Form, Link, useActionData, useSearchParams } from '@remix-run/react';
-import { DataFunctionArgs, json, redirect } from '@remix-run/server-runtime';
+import { ActionFunctionArgs, json, redirect } from '@remix-run/server-runtime';
 import { registerCustomerAccount } from '~/providers/account/account';
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import {
@@ -9,7 +9,7 @@ import {
 } from '~/utils/registration-helper';
 import { DEMO_API_URL } from '~/constants';
 
-export async function action({ params, request }: DataFunctionArgs) {
+export async function action({ params, request }: ActionFunctionArgs) {
   const apiUrl = process.env.VENDURE_API_URL || DEMO_API_URL;
   if (apiUrl === DEMO_API_URL) {
     return {
