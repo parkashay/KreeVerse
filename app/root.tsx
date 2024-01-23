@@ -206,9 +206,10 @@ function DefaultSparseErrorPage({
  * As mentioned in the jsdoc for `DefaultSparseErrorPage` you should replace this to suit your needs.
  */
 export function ErrorBoundary() {
-  let tagline = 'Oopsy daisy';
+  let tagline = 'Server Error.';
   let headline = 'We were not able to connect to the server.';
-  let description = "We couldn't handle your request. Please try again later.";
+  let description =
+    'There was an error while connecting to the server. We will get back to you as soon as we can.';
 
   const error = useRouteError();
   if (isRouteErrorResponse(error)) {
@@ -224,13 +225,4 @@ export function ErrorBoundary() {
       description={description}
     />
   );
-}
-
-/**
- * In Remix v2 there will only be a `ErrorBoundary`
- * As mentioned in the jsdoc for `DefaultSparseErrorPage` you should replace this to suit your needs.
- * Relevant for the future: https://remix.run/docs/en/main/route/error-boundary-v2
- */
-export function CatchBoundary() {
-  return ErrorBoundary();
 }

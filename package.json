@@ -32,7 +32,7 @@
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@types/react-transition-group": "^4.4.8",
-    "@vercel/remix": "^2.2.0",
+    "@vercel/remix": "^2.5.1",
     "braintree-web-drop-in": "^1.33.7",
     "clsx": "^1.2.1",
     "cross-env": "^7.0.3",
