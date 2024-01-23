@@ -22,9 +22,6 @@ const devConfig = {
   serverModuleFormat: 'cjs',
   devServerPort: 8002,
   ignoredRouteFiles: ['.*'],
-  future: {
-    v2_dev: true,
-  },
 };
 
 const prodConfig = {
