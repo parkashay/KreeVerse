@@ -6,7 +6,7 @@ COPY ./package.json ./
 COPY ./package-lock.json ./
 
 RUN npm install -g npm@9.6.1
-RUN npm install --legacy-peer-deps
+RUN npm install
 ARG CI_COMMIT_SHA
 ENV CI_COMMIT_SHA=$CI_COMMIT_SHA
 

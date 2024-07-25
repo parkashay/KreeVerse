@@ -29,7 +29,6 @@
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@types/react-transition-group": "^4.4.8",
-    "@vercel/remix": "^2.5.1",
     "braintree-web-drop-in": "^1.33.7",
     "clsx": "^1.2.1",
     "cross-env": "^7.0.3",
@@ -59,7 +58,7 @@
     "prettier": "^2.6.2",
     "tailwindcss": "^3.2.4",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.5",
+    "typescript": "^5.5.4",
     "wrangler": "^2.4.2"
   },
   "engines": {
