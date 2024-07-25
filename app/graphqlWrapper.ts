@@ -65,7 +65,7 @@ async function sendQuery<Response, Variables = {}>(options: {
   }));
 }
 
-const baseSdk = getSdk<QueryOptions>(requester);
+const baseSdk = getSdk<QueryOptions, unknown>(requester);
 
 type Sdk = typeof baseSdk;
 type SdkWithHeaders = {
