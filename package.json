@@ -9,8 +9,7 @@
     "dev:css": "tailwindcss -w -i ./tailwind.css -o app/styles/app.css",
     "dev": "concurrently \"yarn run dev:css\" \"remix dev\"",
     "start": "remix-serve build",
-    "generate": "graphql-codegen --config codegen.yml",
-    "prepare": "husky install"
+    "generate": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "@graphql-codegen/typescript-generic-sdk": "^3.0.4",
