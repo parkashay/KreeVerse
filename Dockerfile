@@ -1,16 +1,14 @@
-FROM --platform=linux/amd64 node:18-bullseye-slim
+FROM node:18.19.0
 
-WORKDIR /usr/server/app
+WORKDIR /src/app
 
 COPY ./package.json ./
 COPY ./package-lock.json ./
 
+COPY ./ .
 RUN npm install -g npm@9.6.1
-RUN npm install
+RUN npm install --legacy-peer-deps
 ARG CI_COMMIT_SHA
 ENV CI_COMMIT_SHA=$CI_COMMIT_SHA
 
-COPY ./ .
-RUN npm run build
-ENV NODE_ENV=production
-CMD ["npm", "run" ,"start"] # will launch the remix app when we run this Docker image.
+CMD ["npm", "run" ,"dev"] # will launch the remix app when we run this Docker image.

@@ -9,8 +9,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=production
       - CI_COMMIT_SHA=${CI_COMMIT_SHA}
     volumes:
-      - ./:/usr/server/app
-    command: npm run start
+      - ./:/usr/src/app
+    command: npm run dev
