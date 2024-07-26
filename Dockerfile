@@ -11,4 +11,6 @@ RUN npm install --legacy-peer-deps
 ARG CI_COMMIT_SHA
 ENV CI_COMMIT_SHA=$CI_COMMIT_SHA
 
+EXPOSE 3001
+
 CMD ["npm", "run" ,"dev"] # will launch the remix app when we run this Docker image.
